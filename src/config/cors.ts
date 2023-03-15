@@ -1,5 +1,12 @@
-import { CorsOptions } from "cors";
+import cors from "cors";
 
-export const corsOptions: CorsOptions = {
+const allowedDomains: string[] = [
+  'http://localhost:3000',
+];
 
-}
+export const corsOptions = cors({
+  origin: allowedDomains,
+  methods: ['GET', 'POST', 'DELETE', 'PATCH'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+});
