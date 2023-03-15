@@ -1,18 +1,19 @@
 {
-  "name": "pdf-processing-api",
+  "name": "pdf-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "author": {
     "name": "Kain Nhantumbo",
     "email": "nhantumbok@gmail.com",
     "url": "https://portifolio-dev-mu.vercel.app"
   },
   "scripts": {
-    "start": "node dist/app.js",
-    "dev": "nodemon --exec ts-node src/app.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run watch-compile\" \"npm run watch-dev\"",
+    "watch-compile": "swc src -w --out-dir dist",
+    "watch-dev": "nodemon dist/app.js",
+    "build": "swc src -d dist"
   },
   "keywords": [],
   "license": "ISC",

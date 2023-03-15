@@ -1,7 +1,7 @@
 import { Application } from 'express';
 import mongoose from 'mongoose';
 
-export type AppProps = { app: Application; dbUri: string; port: number };
+type AppProps = { app: Application; dbUri: string; port: number };
 
 export default class Bootstrap {
   private readonly props: AppProps;
