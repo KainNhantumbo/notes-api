@@ -19,7 +19,7 @@ export default class EventLogger {
     this.message = props.message;
   }
 
-  public async eventLogger(): Promise<void> {
+  public async register(): Promise<void> {
     const LOG = `${this.date}\t${randomUUID()}\t${this.message}\n`;
     try {
       if (!existsSync(join(__dirname, '..', 'logs'))) {
@@ -31,8 +31,8 @@ export default class EventLogger {
     }
   }
 
-  public log(req: IReq, res: IRes, next: INext): void {
-    this.eventLogger();
+  public logger(req: IReq, res: IRes, next: INext): void {
+    this.register();
     console.log(`${req.method}\t${req.path}\t${req.url} `);
     next();
   }
