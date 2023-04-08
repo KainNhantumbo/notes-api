@@ -1,11 +1,8 @@
-import { Application } from 'express';
+import type { AppProps } from '../@types/index';
 import mongoose from 'mongoose';
-
-type AppProps = { app: Application; dbUri: string; port: number };
 
 export default class Bootstrap {
   private readonly props: AppProps;
-
   constructor(props: AppProps) {
     this.props = props;
   }
@@ -13,9 +10,12 @@ export default class Bootstrap {
   async start(): Promise<void> {
     try {
       await mongoose.connect(this.props.dbUri);
-      console.log(`Server already running on port ${this.props.port}`);
+      this.props.app.listen(this.props.port, () => {
+        console.log(`Server running... Port: ${this.props.port}`);
+      });
     } catch (error) {
       console.error(error);
+      process.exit(process.exitCode);
     }
   }
 }
