@@ -20,7 +20,7 @@ export default class EventLogger {
   }
 
   public async register(): Promise<void> {
-    const LOG = `${this.date}\t${randomUUID()}\t${this.message}\n`;
+    const LOG = `${this.date}\t${randomUUID()}\t${this.message}\n\n\n`;
     try {
       if (!existsSync(join(__dirname, '..', 'logs'))) {
         await mkdir(join(__dirname, '..', 'logs'));
