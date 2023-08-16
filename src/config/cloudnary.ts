@@ -15,9 +15,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const cloudinaryUploader = (imageData: string) =>
-  cloudinary.uploader.upload(imageData, {
+function cloudinaryUploader(imageData: string) {
+  return cloudinary.uploader.upload(imageData, {
     folder: 'PDF-API-USERS',
   });
+}
 
 export { cloudinaryUploader, cloudinary };
