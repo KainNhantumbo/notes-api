@@ -36,7 +36,7 @@ export default class FolderController {
     res.sendStatus(201);
   }
 
-  async updateFolder(req: IReq<{ id: string }>, res: IRes): Promise<void> {
+  async updateFolder(req: IReq, res: IRes): Promise<void> {
     const { user, ...data } = req.body;
     const { id: folderId } = req.params;
 
@@ -50,7 +50,7 @@ export default class FolderController {
     res.sendStatus(200);
   }
 
-  async deleteFolder(req: IReq<{ id: string }>, res: IRes): Promise<void> {
+  async deleteFolder(req: IReq, res: IRes): Promise<void> {
     const { user } = req.body;
     const { id: folderId } = req.params;
     const deletedDoc = await Folder.findOneAndDelete({

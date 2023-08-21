@@ -9,7 +9,7 @@ const controller = new NotesController();
 router
   .route('/')
   .get(authenticate, asyncWrapper(controller.getAllNotes))
-  .post(asyncWrapper(controller.createNote));
+  .post(authenticate, asyncWrapper(controller.createNote));
 
 router
   .route('/:id')
