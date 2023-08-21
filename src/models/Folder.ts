@@ -9,6 +9,7 @@ const FolderSchema = new Schema<IFolder>(
       minlength: [3, 'Folder name is too short'],
       maxlength: [16, 'Folder name is too long'],
     },
+    created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     metadata: {
       color: { type: String, default: '#fff' },
       favorite: { type: Boolean, default: false },

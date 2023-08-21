@@ -12,6 +12,7 @@ export interface IUser {
 export interface INote {
   name: string;
   description: string;
+  created_by: Schema.Types.ObjectId;
   content: {
     time?: number;
     version?: string;
@@ -33,6 +34,7 @@ export interface INote {
 
 export interface IFolder {
   name: string;
+  created_by: Schema.Types.ObjectId;
   metadata: {
     color: string;
     favorite: boolean;

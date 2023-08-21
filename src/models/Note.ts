@@ -13,6 +13,7 @@ const NoteSchema = new Schema<INote>(
       type: String,
       maxlength: [256, 'Description field is too long'],
     },
+    created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     content: {
       time: { type: Number },
       version: { type: String },
