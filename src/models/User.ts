@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import { validateEmail } from '../lib/validators';
+import type { IUser } from '../@types/models';
 
 const UserSchema = new Schema<IUser>(
   {
