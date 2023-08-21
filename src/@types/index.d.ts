@@ -3,7 +3,7 @@ import { Response, Request, NextFunction } from 'express';
 
 export type AppProps = { app: Application; dbUri: string; port: number };
 
-export type EventLoggerType = {
+export type TEventLogger = {
   message: string;
   fileName: string;
 };
@@ -13,3 +13,4 @@ export type HandledFunctionType = (
 	res: Response,
 	next: NextFunction
 ) => ControllerResponse;
+

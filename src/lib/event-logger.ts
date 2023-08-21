@@ -7,14 +7,14 @@ import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
 import { appendFile, mkdir } from 'node:fs/promises';
-import type { EventLoggerType } from '../@types/index';
+import type { TEventLogger } from '../@types/index';
 
 export default class EventLogger {
   private readonly date: string = new Date().toISOString();
   private readonly fileName: string;
   private readonly message: string;
 
-  constructor(props: EventLoggerType) {
+  constructor(props: TEventLogger) {
     this.fileName = props.fileName;
     this.message = props.message;
   }

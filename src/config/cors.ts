@@ -1,8 +1,10 @@
-import cors from "cors";
+import cors from 'cors';
+import * as dotenv from 'dotenv';
 
-const allowedDomains: string[] = [
-  'http://localhost:3000',
-];
+dotenv.config(); // imports env variables
+
+export const allowedDomains: string[] =
+  process.env?.ALLOWED_DOMAINS?.split(',') || [];
 
 export const corsOptions = cors({
   origin: allowedDomains,
