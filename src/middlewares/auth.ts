@@ -11,9 +11,9 @@ import { verifyToken } from '../lib/jwt-async-functions';
 // loads environment variables
 dotenv.config();
 
-export default function authenticate () {
+export default function authenticate() {
   return asyncWrapper(
-    async function (req: IReq, res: IRes, next: INextFn): Promise<void> {
+    async (req: IReq, res: IRes, next: INextFn): Promise<void> => {
       const authHeader = req.headers.authorization;
       if (!authHeader || !authHeader.startsWith('Bearer '))
         throw new AppError('Unauthorized: invalid token.', 401);
@@ -24,7 +24,7 @@ export default function authenticate () {
       );
       if (!decodedPayload) throw new AppError('Invalid token.', 401);
       // inserts user id into request middleware
-      req.body.user = decodedPayload.userId;
+      req.body.user = { id: decodedPayload.userId };
       next();
     }
   );

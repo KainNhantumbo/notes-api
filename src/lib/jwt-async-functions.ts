@@ -7,12 +7,12 @@ import * as jwt from 'jsonwebtoken';
  * @returns Promise<unknown>
  */
 const createToken = async (
-  userId: string,
+  data: object,
   secret: string,
   exp: string | number
 ): Promise<unknown> => {
   return new Promise((resolve): void => {
-    const token = jwt.sign({ userId }, secret, {
+    const token = jwt.sign({ ...data }, secret, {
       expiresIn: exp,
     });
     resolve(token);
