@@ -2,15 +2,6 @@ import * as bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import { validateEmail } from '../lib/validators';
 
-interface IUser {
-  first_name: string;
-  last_name: string;
-  email: string;
-  profile_image: { id: string; url: string };
-  password: string;
-  last_session: Date;
-}
-
 const UserSchema = new Schema<IUser>(
   {
     first_name: {
