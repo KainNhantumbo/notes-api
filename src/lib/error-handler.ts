@@ -3,33 +3,43 @@ import {
   Response as IRes,
   NextFunction as INext,
 } from 'express';
-import { config } from 'dotenv';
-import { JsonWebTokenError } from 'jsonwebtoken';
 import AppError from './app-error';
 import EventLogger from './event-logger';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
-// loads environment variables
-config();
+type _TResponse = IRes<any, Record<string, any>>;
 
+/**
+ * Global error handler middleware.
+ * @param error error object
+ * @param req request
+ * @param res response
+ * @param next next middleware Function
+ */
 export default class ErrorHandler {
-  static genericHandler(err: AppError, res: IRes) {
-    const { message, statusCode } = err;
+  public static genericHandler(err: AppError, res: IRes): _TResponse {
+    const { message, statusCode }: AppError = err;
     return res.status(statusCode).json({
       message,
       code: statusCode,
     });
   }
 
-  static handler(error: Error | AppError, req: IReq, res: IRes, next: INext) {
+  public static handler(
+    error: Error | AppError,
+    req: IReq,
+    res: IRes,
+    next: INext
+  ): _TResponse | undefined {
     if (error instanceof AppError) return this.genericHandler(error, res);
 
-    if (error.name == 'MongoServerError') {
+    if (error.name === 'MongoServerError') {
       if (error.message.split(' ')[0] == 'E11000') {
         return res.status(409).json({
           status: 'Conflict Error',
           code: 409,
           message:
-            'Data Confict Error: Some of the given information already exists on the server',
+            'Data Confict Error: Some of the given information already exists on the server.',
         });
       }
     }
@@ -48,7 +58,15 @@ export default class ErrorHandler {
         message: 'Unauthorized: invalid credentials.',
       });
 
-    if (error.name == 'ValidationError') {
+    if (error.name === 'UploadApiErrorResponse') {
+      return res.status(400).json({
+        status: error.name,
+        code: 400,
+        message: error.message,
+      });
+    }
+
+    if (error.name === 'ValidationError') {
       const errorMessage = Object.values((error as any).errors)
         .map((obj: any) => obj.message)
         .join('. ');
@@ -59,12 +77,20 @@ export default class ErrorHandler {
       });
     }
 
-    if (process.env.NODE_ENV == 'development') {
-      console.log(
-        `An uncaught error has ocurred: ${error.message}\t${error.stack}`
+    if (error.name === 'CastError') {
+      return res.status(400).json({
+        status: 'Malformed Data Error',
+        code: 400,
+        message: 'Some of the data sent to the server was malformed.',
+      });
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      console.error(
+        `An uncaught error has ocurred: \n\n ${error.message}\n\t${error.stack}`
       );
       new EventLogger({
-        message: error.stack || error.message,
+        message: error.stack ?? error.message,
         fileName: 'uncaught-errors.log',
       }).register();
     }
@@ -73,7 +99,7 @@ export default class ErrorHandler {
       status: 'Internal Server Error',
       code: 500,
       message:
-        'An error occurred while processing your request. Please, try again later.',
+        'An error occurred while processing your request. Please try again later.',
     });
   }
 }

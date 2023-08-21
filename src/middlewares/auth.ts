@@ -5,11 +5,11 @@ import {
 } from 'express';
 import AppError from '../lib/app-error';
 import asyncWrapper from '../lib/async-wrapper';
-import { config } from 'dotenv';
+import * as dotenv from 'dotenv';
 import { verifyToken } from '../lib/jwt-async-functions';
 
 // loads environment variables
-config();
+dotenv.config();
 
 export default function authenticate () {
   return asyncWrapper(

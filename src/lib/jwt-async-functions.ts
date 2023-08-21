@@ -6,18 +6,18 @@ import * as jwt from 'jsonwebtoken';
  * @param exp time to token expire
  * @returns Promise<unknown>
  */
-async function createToken(
+const createToken = async (
   userId: string,
   secret: string,
   exp: string | number
-): Promise<unknown> {
+): Promise<unknown> => {
   return new Promise((resolve): void => {
     const token = jwt.sign({ userId }, secret, {
       expiresIn: exp,
     });
     resolve(token);
   });
-}
+};
 
 /**
  * An asynchronous function to verify integrity of the token.
@@ -25,11 +25,11 @@ async function createToken(
  * @param secret string
  * @returns Promise<unknown>
  */
-function verifyToken(token: string, secret: string): Promise<unknown> {
+const verifyToken = (token: string, secret: string): Promise<unknown> => {
   return new Promise((resolve): void => {
     const result = jwt.verify(token, secret);
     resolve(result);
   });
-}
+};
 
 export { createToken, verifyToken };
