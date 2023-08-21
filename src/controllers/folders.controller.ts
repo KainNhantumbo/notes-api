@@ -8,9 +8,11 @@ export default class FolderController {
   async getFolders(req: IReq, res: IRes): Promise<void> {
     const { user } = req.body;
     const { search, sort, offset, limit } = req.query;
-    const query: FilterQuery<IFolder> = { search: '', created_by: user.id };
+    const query: FilterQuery<IFolder> = { created_by: user.id };
 
-    if (search) query.search = String(search);
+    if (search) {
+      query.name = { $regex: String(search), $options: 'i' };
+    }
 
     let queryResult = Folder.find({ ...query });
 

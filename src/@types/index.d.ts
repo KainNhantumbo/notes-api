@@ -13,4 +13,3 @@ export type HandledFunctionType = (
 	res: Response,
 	next: NextFunction
 ) => ControllerResponse;
-
