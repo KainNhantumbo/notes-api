@@ -14,6 +14,7 @@ const FolderSchema = new Schema<IFolder>(
       color: { type: String, default: '#fff' },
       favorite: { type: Boolean, default: false },
       tags: [{ type: String }],
+      deleted: { type: Boolean, default: false },
     },
   },
   { timestamps: true }

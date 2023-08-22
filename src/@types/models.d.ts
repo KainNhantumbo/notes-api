@@ -29,6 +29,9 @@ export interface INote {
     favorite: boolean;
     reminder: { time: Date; expired: boolean };
     tags: string[];
+    deleted: boolean;
+    priority: string;
+    label: string;
   };
 }
 
@@ -39,5 +42,6 @@ export interface IFolder {
     color: string;
     favorite: boolean;
     tags: string[];
+    deleted: boolean;
   };
 }

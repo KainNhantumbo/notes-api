@@ -12,7 +12,9 @@ export default class NoteController {
     const foundDoc = await Note.findOne({
       _id: noteId,
       created_by: user.id,
-    }).lean();
+    })
+      .select('-created_by -__v')
+      .lean();
 
     if (!foundDoc) throw new AppError('Note not found', 404);
     res.status(200).json(foundDoc);

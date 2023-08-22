@@ -28,11 +28,22 @@ const NoteSchema = new Schema<INote>(
       folder: { type: Schema.Types.ObjectId, ref: 'Folder' },
       color: { type: String, default: '#fff' },
       favorite: { type: Boolean, default: false },
+      tags: [{ type: String }],
       reminder: {
         time: { type: Date, default: Date.now() },
         expired: { type: Boolean, default: true },
       },
-      tags: [{ type: String }],
+      deleted: { type: Boolean, default: false },
+      priority: {
+        type: String,
+        enum: ['none', 'low', 'medium', 'high'],
+        default: 'none',
+      },
+      label: {
+        type: String,
+        enum: ['none', 'pending', 'processing', 'reviewing', 'completed'],
+        default: 'none',
+      },
     },
   },
   { timestamps: true }

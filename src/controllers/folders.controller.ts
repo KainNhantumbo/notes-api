@@ -26,7 +26,7 @@ export default class FolderController {
       queryResult.skip(Number(offset)).limit(Number(limit));
     }
 
-    const foundDocs = await queryResult.lean();
+    const foundDocs = await queryResult.select('-created_by -__v').lean();
     res.status(200).json([...foundDocs]);
   }
 
