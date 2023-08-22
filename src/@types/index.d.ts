@@ -9,7 +9,9 @@ export type TEventLogger = {
 };
 
 export type HandledFunctionType = (
-	req: Request,
-	res: Response,
-	next: NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => ControllerResponse;
+
+export type TPasswordValidatorResponse = { status: boolean; message: string };

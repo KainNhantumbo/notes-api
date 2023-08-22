@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import AppError from '../lib/app-error';
 import { cloudinaryAPI } from '../config/cloudnary';
 import { Request as IReq, Response as IRes } from 'express';
+import { validatePassword } from '../lib/validators';
 
 dotenv.config(); // imports env variables
 
@@ -24,6 +25,21 @@ export default class UserController {
 
     if (!password || String(password).length < 8)
       throw new AppError('Password must have at least 8 caracteres', 400);
+
+    const validationResult = await validatePassword(String(password));
+    if (validationResult === false)
+      throw new AppError('Please use a strong password.', 400);
+
+    if (Array.isArray(validationResult)) {
+      const response: string = validationResult
+        .map((obj) => obj?.message)
+        .reduce((acc, current) => {
+          const phrase = String.prototype.concat(acc, ' ', current);
+        }, '');
+
+      throw new AppError(response, 400);
+    }
+
     if (!email) throw new AppError('Coloque o seu e-mail', 400);
 
     // check for duplicates
@@ -47,6 +63,21 @@ export default class UserController {
     if (password) {
       if (String(password).length < 8)
         throw new AppError('Password must have at least 8 caracteres.', 400);
+
+      const validationResult = await validatePassword(String(password));
+      if (validationResult === false)
+        throw new AppError('Please use a strong password.', 400);
+
+      if (Array.isArray(validationResult)) {
+        const response: string = validationResult
+          .map((obj) => obj?.message)
+          .reduce((acc, current) => {
+            const phrase = String.prototype.concat(acc, ' ', current);
+          }, '');
+
+        throw new AppError(response, 400);
+      }
+
       const salt = await bcrypt.genSalt(10);
       data.password = await bcrypt.hash(password, salt);
     }
