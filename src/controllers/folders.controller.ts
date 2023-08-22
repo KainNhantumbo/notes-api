@@ -40,6 +40,13 @@ export default class FolderController {
     const { user, ...data } = req.body;
     const { id: folderId } = req.params;
 
+    const existingDoc = await Folder.findOne({ _id: folderId }).lean();
+    if (!existingDoc)
+      throw new AppError(
+        'Failded to update folder beacause it was not found.',
+        404
+      );
+
     const updatedDoc = await Folder.findOneAndUpdate(
       { _id: folderId, created_by: user.id },
       { ...data },
@@ -53,6 +60,14 @@ export default class FolderController {
   async deleteFolder(req: IReq, res: IRes): Promise<void> {
     const { user } = req.body;
     const { id: folderId } = req.params;
+
+    const existingDoc = await Folder.findOne({ _id: folderId }).lean();
+    if (!existingDoc)
+      throw new AppError(
+        'Failded to delete folder beacause it was not found.',
+        404
+      );
+
     const deletedDoc = await Folder.findOneAndDelete({
       _id: folderId,
       created_by: user.id,

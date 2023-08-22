@@ -6,6 +6,8 @@ import AppError from '../lib/app-error';
 import { cloudinaryAPI } from '../config/cloudnary';
 import { Request as IReq, Response as IRes } from 'express';
 import { validatePassword } from '../lib/validators';
+import Folder from '../models/Folder';
+import Note from '../models/Note';
 
 dotenv.config(); // imports env variables
 
@@ -35,6 +37,7 @@ export default class UserController {
         .map((obj) => obj?.message)
         .reduce((acc, current) => {
           const phrase = String.prototype.concat(acc, ' ', current);
+          return phrase;
         }, '');
 
       throw new AppError(response, 400);
@@ -55,9 +58,6 @@ export default class UserController {
     let { user, ...userData } = req.body;
     const defaultFields = '-password -last_session';
 
-    const foundUser = await User.findOne({ _id: user.id }).lean();
-    if (!foundUser) throw new AppError('User not found.', 404);
-
     const { profileImageData, password, ...data } = userData;
 
     if (password) {
@@ -73,6 +73,7 @@ export default class UserController {
           .map((obj) => obj?.message)
           .reduce((acc, current) => {
             const phrase = String.prototype.concat(acc, ' ', current);
+            return phrase;
           }, '');
 
         throw new AppError(response, 400);
@@ -116,6 +117,10 @@ export default class UserController {
 
   async deleteUser(req: IReq, res: IRes): Promise<void> {
     let { user } = req.body;
+
+    await Folder.deleteMany({ created_by: user.id }).lean();
+    await Note.deleteMany({ created_by: user.id }).lean();
+
     const deletedDoc = await User.findOneAndDelete({ _id: user.id }).lean();
 
     if (!deletedDoc)

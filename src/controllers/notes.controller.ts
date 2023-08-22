@@ -16,13 +16,13 @@ export default class NoteController {
       .select('-created_by -__v')
       .lean();
 
-    if (!foundDoc) throw new AppError('Note not found', 404);
+    if (!foundDoc) throw new AppError('Note not found.', 404);
     res.status(200).json(foundDoc);
   }
 
   async getAllNotes(req: IReq, res: IRes): Promise<void> {
     const { user } = req.body;
-    const { search, sort, offset, limit, favorite } = req.query;
+    const { search, sort, offset, limit, favorite, folder } = req.query;
     const query: FilterQuery<INote> = { created_by: user.id };
 
     if (search) {
@@ -35,6 +35,10 @@ export default class NoteController {
 
     if (favorite) {
       query.metadata = { favorite: Boolean(Number(favorite)) };
+    }
+
+    if (folder) {
+      query.metadata = { folder: String(folder) };
     }
 
     let queryResult = Note.find({ ...query });
@@ -63,6 +67,13 @@ export default class NoteController {
     const { user, ...data } = req.body;
     const { id: noteId } = req.params;
 
+    const existingDoc = await Note.findOne({ _id: noteId }).lean();
+    if (!existingDoc)
+      throw new AppError(
+        'Failded to update note beacause it was not found.',
+        404
+      );
+
     const updatedDoc = await Note.findOneAndUpdate(
       { _id: noteId, created_by: user.id },
       { ...data },
@@ -76,6 +87,13 @@ export default class NoteController {
   async deleteNote(req: IReq, res: IRes): Promise<void> {
     const { user } = req.body;
     const { id: noteId } = req.params;
+
+    const existingDoc = await Note.findOne({ _id: noteId }).lean();
+    if (!existingDoc)
+      throw new AppError(
+        'Failded to delete note beacause it was not found.',
+        404
+      );
 
     const deletedDoc = await Note.findOneAndDelete({
       _id: noteId,
