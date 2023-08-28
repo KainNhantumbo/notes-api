@@ -1,13 +1,13 @@
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import User from '../models/User';
-import { randomUUID } from 'node:crypto';
-import AppError from '../lib/app-error';
-import { cloudinaryAPI } from '../config/cloudnary';
-import { Request as IReq, Response as IRes } from 'express';
-import { validatePassword } from '../lib/validators';
-import Folder from '../models/Folder';
 import Note from '../models/Note';
+import Folder from '../models/Folder';
+import AppError from '../lib/app-error';
+import { randomUUID } from 'node:crypto';
+import { cloudinaryAPI } from '../config/cloudnary';
+import { validatePassword } from '../lib/validators';
+import { Request as IReq, Response as IRes } from 'express';
 
 dotenv.config(); // imports env variables
 

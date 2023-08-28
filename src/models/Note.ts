@@ -3,30 +3,20 @@ import { INote } from '../@types/models';
 
 const NoteSchema = new Schema<INote>(
   {
-    name: {
+    title: {
       type: String,
       required: [true, 'Plese give a title to your note before saving'],
       minlength: [8, 'Title field is too short'],
       maxlength: [128, 'Title field is too long'],
     },
-    description: {
-      type: String,
-      maxlength: [256, 'Description field is too long'],
-    },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     content: {
-      time: { type: Number },
-      version: { type: String },
-      blocks: [
-        {
-          type: Array,
-          required: [true, 'Escreva o conteúdo da postagem'],
-        },
-      ],
+      type: String,
+      required: [true, 'Plese write a content to your note before saving'],
     },
     metadata: {
-      folder: { type: Schema.Types.ObjectId, ref: 'Folder' },
-      color: { type: String, default: '#fff' },
+      folder_id: { type: Schema.Types.ObjectId, ref: 'Folder' },
+      color: { type: String, default: '' },
       favorite: { type: Boolean, default: false },
       tags: [{ type: String }],
       reminder: {

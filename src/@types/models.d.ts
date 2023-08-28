@@ -10,21 +10,11 @@ export interface IUser {
 }
 
 export interface INote {
-  name: string;
-  description: string;
+  title: string;
   created_by: Schema.Types.ObjectId;
-  content: {
-    time?: number;
-    version?: string;
-    blocks: Array<{
-      id?: string | undefined;
-      type: string;
-      data: any;
-      tunes?: { [name: string]: any };
-    }>;
-  };
+  content: string;
   metadata: {
-    folder: Schema.Types.ObjectId;
+    folder_id: Schema.Types.ObjectId;
     color: string;
     favorite: boolean;
     reminder: { time: Date; expired: boolean };

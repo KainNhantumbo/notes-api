@@ -13,7 +13,8 @@ export default class NoteController {
       _id: noteId,
       created_by: user.id,
     })
-      .select('-created_by -__v')
+      .populate({ path: 'folder_id' })
+      .select('-__v')
       .lean();
 
     if (!foundDoc) throw new AppError('Note not found.', 404);
@@ -27,8 +28,8 @@ export default class NoteController {
 
     if (search) {
       query['or'] = [
-        { name: { $regex: String(search), $options: 'i' } },
-        { description: { $regex: String(search), $options: 'i' } },
+        { title: { $regex: String(search), $options: 'i' } },
+        { content: { $regex: String(search), $options: 'i' } },
         { metadata: { tags: { $in: String(search) } } },
       ];
     }
