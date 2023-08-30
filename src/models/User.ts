@@ -36,6 +36,7 @@ const UserSchema = new Schema<IUser>(
     },
     profile_image: { id: String, url: String },
     last_session: { type: Date, default: Date.now() },
+    settings: { type: Schema.Types.ObjectId, ref: 'Settings' },
   },
   { timestamps: true }
 );

@@ -7,6 +7,7 @@ export interface IUser {
   profile_image: { id: string; url: string };
   password: string;
   last_session: Date;
+  settings: Schema.Types.ObjectId
 }
 
 export interface INote {

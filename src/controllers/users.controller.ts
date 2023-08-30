@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import User from '../models/User';
 import Note from '../models/Note';
+import Settings from '../models/Settings';
 import Folder from '../models/Folder';
 import AppError from '../lib/app-error';
 import { randomUUID } from 'node:crypto';
@@ -50,7 +51,10 @@ export default class UserController {
     if (existingUser)
       throw new AppError('A account with provided email already exists.', 409);
 
-    await User.create({ ...data, password, email });
+    const createdUser = await User.create({ ...data, password, email });
+
+    // creates a settings store object on database for the user
+    await Settings.create({ created_by: createdUser._id });
     res.sendStatus(201);
   }
 
