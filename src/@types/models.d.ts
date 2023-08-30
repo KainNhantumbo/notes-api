@@ -36,7 +36,7 @@ export interface IFolder {
   };
 }
 
-export type TPreferences = {
+export type TSettings = {
   created_by: Schema.Types.ObjectId;
   editor: {
     auto_save: {
@@ -48,17 +48,16 @@ export type TPreferences = {
       line_height: number;
       font_family: string;
       font_weight: number;
-      text_diretion: string;
+      writing_diretion: string;
     };
     editing: {
       line_numbers: boolean;
       toolbar: boolean;
       wrap_lines: boolean;
       ident_with_tabs: boolean;
-    };
-    file: {
       enable_spell_checker: boolean;
     };
+  
   };
   theme: {
     main_theme: string;
