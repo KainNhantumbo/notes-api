@@ -1,7 +1,7 @@
 {
-  "name": "notes-api",
+  "name": "choconotey-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "choconotey server rest api application",
   "main": "dist/index.js",
   "author": {
     "name": "Kain Nhantumbo",
@@ -19,8 +19,16 @@
     "typecheck": "tsc",
     "typecheck:watch": "tsc -w"
   },
-  "keywords": [],
-  "license": "ISC",
+  "keywords": [
+    "notes",
+    "notes markdown application server",
+    "notes application",
+    "notes server application",
+    "rest api",
+    "choconotey application"
+  ],
+  "repository": "https://github.com/notes-api",
+  "license": "Apache License Version 2.0",
   "dependencies": {
     "@godaddy/terminus": "^4.12.1",
     "bcrypt": "^5.1.0",

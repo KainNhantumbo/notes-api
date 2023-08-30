@@ -5,9 +5,8 @@ const NoteSchema = new Schema<INote>(
   {
     title: {
       type: String,
-      required: [true, 'Plese give a title to your note before saving'],
-      minlength: [8, 'Title field is too short'],
       maxlength: [128, 'Title field is too long'],
+      default: 'Untitled',
     },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     content: {

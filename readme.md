@@ -1,6 +1,6 @@
 # Notes REST API (Node.JS + Typescript + Mongo DB)
 
-This REST API server application is built to serve its endpoints to Notes application ([see the source code here](https://github.com/KainNhantumbo/notes-api)), which is currently under development.
+This REST API server application is built to serve its endpoints to Choconotey application ([see the source code here](https://github.com/KainNhantumbo/notes-api)), which is currently under development.
 
 <!-- **Access this app live at: [https://bug-tracker-pied.vercel.app](https://bug-tracker-pied.vercel.app)** -->
 
@@ -52,7 +52,7 @@ Best regards, Kain Nhantumbo.\
 
 ## License
 
-Licensed under Apache 2.0 License. All rights reserved.\
+Licensed under Apache License 2.0. All rights reserved.\
 Copyright &copy; 2023 Kain Nhantumbo.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
