@@ -33,7 +33,7 @@ export default class UserController {
     if (validationResult === false)
       throw new AppError('Please use a strong password.', 400);
 
-    if (Array.isArray(validationResult)) {
+    if (Array.isArray(validationResult) && validationResult.length > 0) {
       const response: string = validationResult
         .map((obj) => obj?.message)
         .reduce((acc, current) => {

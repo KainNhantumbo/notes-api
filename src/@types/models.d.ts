@@ -7,7 +7,7 @@ export interface IUser {
   profile_image: { id: string; url: string };
   password: string;
   last_session: Date;
-  settings: Schema.Types.ObjectId
+  settings: Schema.Types.ObjectId;
 }
 
 export interface INote {
@@ -17,12 +17,12 @@ export interface INote {
   metadata: {
     folder_id: Schema.Types.ObjectId;
     color: string;
-    favorite: boolean;
+    bookmarked: boolean;
     reminder: { time: Date; expired: boolean };
-    tags: string[];
+    tags: { color: string; value: string }[];
     deleted: boolean;
     priority: string;
-    label: string;
+    status: string;
   };
 }
 
@@ -58,7 +58,6 @@ export type TSettings = {
       ident_with_tabs: boolean;
       enable_spell_checker: boolean;
     };
-  
   };
   theme: {
     main_theme: string;

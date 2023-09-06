@@ -16,8 +16,13 @@ const NoteSchema = new Schema<INote>(
     metadata: {
       folder_id: { type: Schema.Types.ObjectId, ref: 'Folder' },
       color: { type: String, default: '' },
-      favorite: { type: Boolean, default: false },
-      tags: [{ type: String }],
+      bookmarked: { type: Boolean, default: false },
+      tags: [
+        {
+          color: { type: String, required: [true, 'Please provide tag color'] },
+          value: { type: String, required: [true, 'Please provide tag value'] },
+        },
+      ],
       reminder: {
         time: { type: Date, default: Date.now() },
         expired: { type: Boolean, default: true },
@@ -28,9 +33,16 @@ const NoteSchema = new Schema<INote>(
         enum: ['none', 'low', 'medium', 'high'],
         default: 'none',
       },
-      label: {
+      status: {
         type: String,
-        enum: ['none', 'pending', 'processing', 'reviewing', 'completed'],
+        enum: [
+          'none',
+          'pending',
+          'active',
+          'reviewing',
+          'completed',
+          'cancelled',
+        ],
         default: 'none',
       },
     },

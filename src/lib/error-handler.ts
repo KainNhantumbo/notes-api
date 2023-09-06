@@ -31,7 +31,13 @@ export default class ErrorHandler {
     res: IRes,
     next: INext
   ): _TResponse | undefined {
-    if (error instanceof AppError) return this.genericHandler(error, res);
+    if (error instanceof AppError) {
+      const { message, statusCode }: AppError = error;
+      return res.status(statusCode).json({
+        message,
+        code: statusCode,
+      });
+    }
 
     if (error.name === 'MongoServerError') {
       if (error.message.split(' ')[0] == 'E11000') {

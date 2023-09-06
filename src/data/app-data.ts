@@ -1,9 +1,3 @@
-export enum Subscription {
-  premium = 'PREMIUM',
-  basic = 'BASIC',
-  trial = 'TRIAL',
-}
-
 const colors: string[] = [
   '#E93A9A',
   '#E93D58',
