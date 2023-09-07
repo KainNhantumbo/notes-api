@@ -12,6 +12,7 @@ import { authRoutes } from './routes/auth.routes';
 import { userRoutes } from './routes/users.routes';
 import { folderRoutes } from './routes/folders.routes';
 import { notesRoutes } from './routes/notes.routes';
+import { settingsRoutes } from './routes/settings.routes';
 
 //server configuration
 dotenv.config();
@@ -32,6 +33,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/notes', notesRoutes);
 app.use('/api/v1/folders', folderRoutes);
+app.use('/api/v1/settings', settingsRoutes);
 
 // error handlers
 app.use(notFoundRoute);
