@@ -19,7 +19,7 @@ export interface INote {
     color: string;
     bookmarked: boolean;
     reminder: { time: Date; expired: boolean };
-    tags: { color: string; value: string }[];
+    tags: { id: string; color: string; value: string }[];
     deleted: boolean;
     priority: string;
     status: string;
@@ -53,10 +53,10 @@ export type TSettings = {
     };
     editing: {
       line_numbers: boolean;
-      toolbar: boolean;
-      wrap_lines: boolean;
-      ident_with_tabs: boolean;
-      enable_spell_checker: boolean;
+      enable_toolbar: boolean;
+      enable_relative_line_numbers: boolean;
+      tab_size: number
+      highlight_active_line: boolean
     };
   };
   theme: {

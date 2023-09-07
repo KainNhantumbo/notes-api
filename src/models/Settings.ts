@@ -42,10 +42,10 @@ const SettingsSchema = new Schema<TSettings>(
       },
       editing: {
         line_numbers: { type: Boolean, default: false },
-        toolbar: { type: Boolean, default: true },
-        wrap_lines: { type: Boolean, default: true },
-        ident_with_tabs: { type: Boolean, default: true },
-        enable_spell_checker: { type: Boolean, default: false },
+        enable_toolbar: { type: Boolean, default: true },
+        tab_size: { type: Number, default: 2 },
+        enable_relative_line_numbers: { type: Boolean, default: false },
+        highlight_active_line: { type: Boolean, default: false },
       },
     },
     theme: {

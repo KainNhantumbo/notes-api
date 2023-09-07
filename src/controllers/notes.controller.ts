@@ -30,7 +30,7 @@ export default class NoteController {
       query['or'] = [
         { title: { $regex: String(search), $options: 'i' } },
         { content: { $regex: String(search), $options: 'i' } },
-        { metadata: { tags: { $in: String(search) } } },
+        { metadata: { tags: { $in: { value: String(search) } } } },
       ];
     }
 

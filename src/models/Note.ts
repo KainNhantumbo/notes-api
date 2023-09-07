@@ -19,6 +19,7 @@ const NoteSchema = new Schema<INote>(
       bookmarked: { type: Boolean, default: false },
       tags: [
         {
+          id: { type: String, required: [true, 'Please provide tag ID'] },
           color: { type: String, required: [true, 'Please provide tag color'] },
           value: { type: String, required: [true, 'Please provide tag value'] },
         },
