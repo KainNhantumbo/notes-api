@@ -65,5 +65,4 @@ export type TSettings = {
     previewer_theme: string;
     automatic_ui_theme: boolean;
   };
-  key_bindings: {};
 };

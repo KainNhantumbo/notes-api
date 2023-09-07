@@ -66,10 +66,6 @@ const SettingsSchema = new Schema<TSettings>(
       },
       automatic_ui_theme: { type: Boolean, default: true },
     },
-    key_bindings: {
-      type: Object,
-      default: {},
-    },
   },
   { timestamps: true }
 );
