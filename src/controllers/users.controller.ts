@@ -66,7 +66,7 @@ export default class UserController {
 
     if (password) {
       if (String(password).length < 8)
-        throw new AppError('Password must have at least 8 caracteres.', 400);
+        throw new AppError('Password must have at least 8 characters.', 400);
 
       const validationResult = await validatePassword(String(password));
       if (validationResult === false)
@@ -124,6 +124,7 @@ export default class UserController {
 
     await Folder.deleteMany({ created_by: user.id }).lean();
     await Note.deleteMany({ created_by: user.id }).lean();
+    await Settings.deleteOne({ created_by: user.id }).lean();
 
     const deletedDoc = await User.findOneAndDelete({ _id: user.id }).lean();
 
@@ -135,6 +136,26 @@ export default class UserController {
 
     if (process.env.NODE_ENV !== 'development') {
       await cloudinaryAPI.uploader.destroy(deletedDoc.profile_image.id, {
+        invalidate: true,
+      });
+    }
+    res.sendStatus(204);
+  }
+
+  async deleteAsset(req: IReq, res: IRes): Promise<void> {
+    const { user, assetId } = req.body;
+    if (!assetId) throw new AppError('Provide asset ID.', 400);
+
+    const updatedDoc = await User.findOneAndUpdate(
+      { _id: user.id },
+      { profile_image: { id: '', url: '' } },
+      { runValidators: true, new: true, lean: true }
+    );
+
+    if (!updatedDoc) throw new AppError('Error: failed to update data', 500);
+
+    if (process.env.NODE_ENV !== 'development') {
+      await cloudinaryAPI.uploader.destroy(assetId, {
         invalidate: true,
       });
     }

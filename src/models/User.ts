@@ -9,12 +9,14 @@ const UserSchema = new Schema<IUser>(
       type: String,
       trim: true,
       required: [true, 'First name must be provided'],
+      minlength: [4, 'First name field length is too short'],
       maxlength: [32, 'First name field length is too long'],
     },
     last_name: {
       type: String,
       trim: true,
-      required: [true, 'Last name must be provided.'],
+      required: [true, 'Last name must be provided'],
+      minlength: [2, 'Last name field length is too short'],
       maxlength: [32, 'Last name field length is too long'],
     },
     email: {

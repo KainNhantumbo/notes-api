@@ -1,5 +1,6 @@
-import type { TSettings } from '../@types/models';
 import { Schema, model } from 'mongoose';
+import type { TSettings } from '../@types/models';
+import { editorThemeOptions } from '../data/app-data';
 
 const SettingsSchema = new Schema<TSettings>(
   {
@@ -27,17 +28,12 @@ const SettingsSchema = new Schema<TSettings>(
           maxlength: [128, 'Reached max input values for font ily names'],
           minlength: [3, 'Please use a valid font family names'],
           default:
-            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'JetBrains Mono', 'Liberation Mono', 'Courier New', monospace",
         },
         font_weight: {
           type: Number,
           default: 400,
           enum: [400, 500, 600, 700, 800],
-        },
-        writing_diretion: {
-          type: String,
-          default: 'left to right',
-          enum: ['right to left', 'left to right'],
         },
       },
       editing: {
@@ -49,20 +45,15 @@ const SettingsSchema = new Schema<TSettings>(
       },
     },
     theme: {
-      main_theme: {
+      ui_theme: {
         type: String,
         default: 'light',
         enum: ['light', 'dark'],
       },
       editor_theme: {
         type: String,
-        default: 'github-theme',
-        enum: ['github-theme'],
-      },
-      previewer_theme: {
-        type: String,
-        default: 'github-theme',
-        enum: ['github-theme'],
+        default: 'basic',
+        enum: editorThemeOptions,
       },
       automatic_ui_theme: { type: Boolean, default: true },
     },

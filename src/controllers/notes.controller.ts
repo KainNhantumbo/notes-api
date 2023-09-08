@@ -60,8 +60,8 @@ export default class NoteController {
 
   async createNote(req: IReq, res: IRes): Promise<void> {
     const { user, ...data } = req.body;
-    await Note.create({ ...data, created_by: user.id });
-    res.sendStatus(201);
+    const createdDoc = await Note.create({ ...data, created_by: user.id });
+    res.status(201).json({ ...createdDoc });
   }
 
   async updateNote(req: IReq, res: IRes): Promise<void> {

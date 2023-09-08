@@ -49,7 +49,6 @@ export type TSettings = {
       line_height: number;
       font_family: string;
       font_weight: number;
-      writing_diretion: string;
     };
     editing: {
       line_numbers: boolean;
@@ -60,9 +59,8 @@ export type TSettings = {
     };
   };
   theme: {
-    main_theme: string;
+    ui_theme: string;
     editor_theme: string;
-    previewer_theme: string;
     automatic_ui_theme: boolean;
   };
 };

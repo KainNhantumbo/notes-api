@@ -13,4 +13,7 @@ router
   .patch(authenticate, asyncWrapper(controller.updateUser))
   .delete(authenticate, asyncWrapper(controller.deleteUser));
 
+router.route('/assets').delete(asyncWrapper(controller.deleteAsset))
+
+
 export { router as userRoutes };
