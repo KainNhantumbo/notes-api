@@ -13,17 +13,17 @@ import { Request as IReq, Response as IRes } from 'express';
 dotenv.config(); // imports env variables
 
 export default class UserController {
-  async getUser(req: IReq, res: IRes): Promise<void> {
-    const { id } = req.params;
-    const defaultFields = '-password -last_session';
-    const foundUser = await User.findOne({ _id: id })
-      .select(defaultFields)
+  async getUser(req: IReq, res: IRes) {
+    const { user } = req.body;
+    const foundUser = await User.findOne({ _id: user.id })
+      .select('-password -last_session')
       .lean();
-    if (!foundUser) throw new AppError('Erro: usuário não encontrado.', 404);
+    if (!foundUser)
+      throw new AppError('Requested user account was not found.', 404);
     res.status(200).json(foundUser);
   }
 
-  async createUser(req: IReq, res: IRes): Promise<void> {
+  async createUser(req: IReq, res: IRes) {
     const { password, email, ...data } = req.body;
 
     if (!password || String(password).length < 8)
@@ -31,7 +31,10 @@ export default class UserController {
 
     const validationResult = await validatePassword(String(password));
     if (validationResult === false)
-      throw new AppError('Please use a strong password.', 400);
+      throw new AppError(
+        'Please use a strong password that contains at least 2 special characters.',
+        400
+      );
 
     if (Array.isArray(validationResult) && validationResult.length > 0) {
       const response: string = validationResult
@@ -44,7 +47,8 @@ export default class UserController {
       throw new AppError(response, 400);
     }
 
-    if (!email) throw new AppError('Coloque o seu e-mail', 400);
+    if (!email)
+      throw new AppError('Please type your account email adress', 400);
 
     // check for duplicates
     const existingUser = await User.exists({ email }).lean();
@@ -58,7 +62,7 @@ export default class UserController {
     res.sendStatus(201);
   }
 
-  async updateUser(req: IReq, res: IRes): Promise<void> {
+  async updateUser(req: IReq, res: IRes) {
     let { user, ...userData } = req.body;
     const defaultFields = '-password -last_session';
 
@@ -119,7 +123,7 @@ export default class UserController {
     res.status(200).json({ ...updatedDoc });
   }
 
-  async deleteUser(req: IReq, res: IRes): Promise<void> {
+  async deleteUser(req: IReq, res: IRes) {
     let { user } = req.body;
 
     await Folder.deleteMany({ created_by: user.id }).lean();
@@ -142,9 +146,10 @@ export default class UserController {
     res.sendStatus(204);
   }
 
-  async deleteAsset(req: IReq, res: IRes): Promise<void> {
+  async deleteAsset(req: IReq, res: IRes) {
     const { user, assetId } = req.body;
-    if (!assetId) throw new AppError('Provide asset ID.', 400);
+    if (!assetId)
+      throw new AppError('Delete operation failed: No asset ID provided.', 400);
 
     const updatedDoc = await User.findOneAndUpdate(
       { _id: user.id },

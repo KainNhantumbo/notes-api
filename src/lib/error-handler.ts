@@ -7,8 +7,6 @@ import AppError from './app-error';
 import EventLogger from './event-logger';
 import { JsonWebTokenError } from 'jsonwebtoken';
 
-type _TResponse = IRes<any, Record<string, any>>;
-
 /**
  * Global error handler middleware.
  * @param error error object
@@ -17,7 +15,7 @@ type _TResponse = IRes<any, Record<string, any>>;
  * @param next next middleware Function
  */
 export default class ErrorHandler {
-  public static genericHandler(err: AppError, res: IRes): _TResponse {
+  static genericHandler(err: AppError, res: IRes) {
     const { message, statusCode }: AppError = err;
     return res.status(statusCode).json({
       message,
@@ -25,12 +23,7 @@ export default class ErrorHandler {
     });
   }
 
-  public static handler(
-    error: Error | AppError,
-    req: IReq,
-    res: IRes,
-    next: INext
-  ): _TResponse | undefined {
+  static handler(error: Error, req: IReq, res: IRes, next: INext) {
     if (error instanceof AppError) {
       const { message, statusCode }: AppError = error;
       return res.status(statusCode).json({

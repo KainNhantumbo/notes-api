@@ -1,11 +1,11 @@
 import { FilterQuery } from 'mongoose';
 import Folder from '../models/Folder';
 import { Request as IReq, Response as IRes } from 'express';
-import { IFolder } from '../@types/models';
+import { IFolder } from '../types/models';
 import AppError from '../lib/app-error';
 
 export default class FolderController {
-  async getFolders(req: IReq, res: IRes): Promise<void> {
+  async getFolders(req: IReq, res: IRes) {
     const { user } = req.body;
     const { search, sort, offset, limit } = req.query;
     const query: FilterQuery<IFolder> = { created_by: user.id };
@@ -30,13 +30,13 @@ export default class FolderController {
     res.status(200).json([...foundDocs]);
   }
 
-  async createFolder(req: IReq, res: IRes): Promise<void> {
+  async createFolder(req: IReq, res: IRes) {
     const { user, ...data } = req.body;
     await Folder.create({ ...data, created_by: user.id });
     res.sendStatus(201);
   }
 
-  async updateFolder(req: IReq, res: IRes): Promise<void> {
+  async updateFolder(req: IReq, res: IRes) {
     const { user, ...data } = req.body;
     const { id: folderId } = req.params;
 
@@ -57,7 +57,7 @@ export default class FolderController {
     res.sendStatus(200);
   }
 
-  async deleteFolder(req: IReq, res: IRes): Promise<void> {
+  async deleteFolder(req: IReq, res: IRes) {
     const { user } = req.body;
     const { id: folderId } = req.params;
 

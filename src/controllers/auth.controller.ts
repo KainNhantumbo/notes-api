@@ -8,7 +8,7 @@ import { verifyToken, createToken } from '../lib/jwt-async-functions';
 dotenv.config(); // imports env variables
 
 export default class AuthController {
-  async defaultLogin(req: IReq, res: IRes): Promise<void> {
+  async defaultLogin(req: IReq, res: IRes) {
     const PROD_ENV: boolean =
       process.env.NODE_ENV === 'development' ? false : true;
 
@@ -67,7 +67,7 @@ export default class AuthController {
       });
   }
 
-  async refresh(req: IReq, res: IRes): Promise<void> {
+  async refresh(req: IReq, res: IRes) {
     const tokenCookie = req.cookies.userToken;
     if (!tokenCookie)
       throw new AppError('Access denied: invalid credentials.', 401);
@@ -107,7 +107,7 @@ export default class AuthController {
     });
   }
 
-  async logout(req: IReq, res: IRes): Promise<void> {
+  async logout(req: IReq, res: IRes) {
     const tokenCookie = req.cookies.userToken;
     const PROD_ENV = process.env.NODE_ENV === 'development' ? false : true;
     if (!tokenCookie)

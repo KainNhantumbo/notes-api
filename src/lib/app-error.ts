@@ -1,6 +1,6 @@
 export default class AppError extends Error {
-  public readonly message: string;
-  public readonly statusCode: number;
+  readonly message: string;
+  readonly statusCode: number;
 
   constructor(message: string, statusCode: number) {
     super();
@@ -8,4 +8,3 @@ export default class AppError extends Error {
     this.statusCode = statusCode;
   }
 }
-

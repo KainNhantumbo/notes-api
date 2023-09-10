@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import type { TSettings } from '../@types/models';
+import type { TSettings } from '../types/models';
 import { editorThemeOptions } from '../data/app-data';
 
 const SettingsSchema = new Schema<TSettings>(

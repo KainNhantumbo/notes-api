@@ -1,11 +1,11 @@
-import { FilterQuery } from 'mongoose';
 import Note from '../models/Note';
-import { Request as IReq, Response as IRes } from 'express';
-import { INote } from '../@types/models';
 import AppError from '../lib/app-error';
+import { INote } from '../types/models';
+import { FilterQuery, isValidObjectId } from 'mongoose';
+import { Request as IReq, Response as IRes } from 'express';
 
 export default class NoteController {
-  async getNote(req: IReq, res: IRes): Promise<void> {
+  async getNote(req: IReq, res: IRes) {
     const { user } = req.body;
     const { id: noteId } = req.params;
 
@@ -17,11 +17,11 @@ export default class NoteController {
       .select('-__v')
       .lean();
 
-    if (!foundDoc) throw new AppError('Note not found.', 404);
+    if (!foundDoc) throw new AppError('Requested note was not found.', 404);
     res.status(200).json(foundDoc);
   }
 
-  async getAllNotes(req: IReq, res: IRes): Promise<void> {
+  async getAllNotes(req: IReq, res: IRes) {
     const { user } = req.body;
     const { search, sort, offset, limit, favorite, folder } = req.query;
     const query: FilterQuery<INote> = { created_by: user.id };
@@ -47,7 +47,7 @@ export default class NoteController {
     if (sort) {
       queryResult = queryResult.sort(String(sort));
     } else {
-      queryResult = queryResult.sort({ name: 'asc' });
+      queryResult = queryResult.sort({ updatedAt: 'desc' });
     }
 
     if (offset && limit) {
@@ -58,13 +58,13 @@ export default class NoteController {
     res.status(200).json([...foundDocs]);
   }
 
-  async createNote(req: IReq, res: IRes): Promise<void> {
+  async createNote(req: IReq, res: IRes) {
     const { user, ...data } = req.body;
     const createdDoc = await Note.create({ ...data, created_by: user.id });
-    res.status(201).json({ ...createdDoc });
+    res.status(201).json(createdDoc);
   }
 
-  async updateNote(req: IReq, res: IRes): Promise<void> {
+  async updateNote(req: IReq, res: IRes) {
     const { user, ...data } = req.body;
     const { id: noteId } = req.params;
 
@@ -75,6 +75,15 @@ export default class NoteController {
         404
       );
 
+    if (data?.metadata?.folder_id) {
+      if (!isValidObjectId(data?.metadata?.folder_id)) {
+        throw new AppError(
+          'Invalid note folder ID, please check and try again.',
+          400
+        );
+      }
+    }
+
     const updatedDoc = await Note.findOneAndUpdate(
       { _id: noteId, created_by: user.id },
       { ...data },
@@ -82,10 +91,10 @@ export default class NoteController {
     );
 
     if (!updatedDoc) throw new AppError('Failed to update note data.', 500);
-    res.sendStatus(200);
+    res.status(200).json({ ...updatedDoc });
   }
 
-  async deleteNote(req: IReq, res: IRes): Promise<void> {
+  async deleteNote(req: IReq, res: IRes) {
     const { user } = req.body;
     const { id: noteId } = req.params;
 

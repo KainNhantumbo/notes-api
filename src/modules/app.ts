@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 import { debug } from 'node:util';
 import { log } from 'node:console';
 import terminus from '@godaddy/terminus';
-import type { AppProps } from '../@types/index';
-import { Application } from 'express';
+import type { AppProps } from '../types';
 
 export default class Bootstrap {
   private readonly props: AppProps;
@@ -12,7 +11,7 @@ export default class Bootstrap {
     this.props = props;
   }
 
-  public async start(): Promise<void> {
+  async start() {
     try {
       this.shutdown();
       await mongoose.connect(this.props.dbUri);
@@ -25,7 +24,7 @@ export default class Bootstrap {
     }
   }
 
-  private shutdown(): Application {
+  private shutdown() {
     return terminus.createTerminus(this.props.app, {
       onSignal: async function () {
         try {

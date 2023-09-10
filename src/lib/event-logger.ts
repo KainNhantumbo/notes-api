@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
 import { appendFile, mkdir } from 'node:fs/promises';
-import type { TEventLogger } from '../@types/index';
+import type { TEventLogger } from '../types/index';
 
 export default class EventLogger {
   private readonly date: string = new Date().toISOString();
@@ -19,7 +19,7 @@ export default class EventLogger {
     this.message = props.message;
   }
 
-  public async register(): Promise<void> {
+  async register() {
     const LOG = `${this.date}\t${randomUUID()}\t${this.message}\n\n\n`;
     try {
       if (!existsSync(join(__dirname, '..', 'logs'))) {
@@ -31,7 +31,7 @@ export default class EventLogger {
     }
   }
 
-  public logger(req: IReq, res: IRes, next: INext): void {
+  logger(req: IReq, res: IRes, next: INext) {
     this.register();
     console.log(`${req.method}\t${req.path}\t${req.url} `);
     next();

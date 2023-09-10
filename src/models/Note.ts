@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { INote } from '../@types/models';
+import { INote } from '../types/models';
 
 const NoteSchema = new Schema<INote>(
   {
@@ -9,12 +9,9 @@ const NoteSchema = new Schema<INote>(
       default: 'Untitled',
     },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
-    content: {
-      type: String,
-      required: [true, 'Plese write a content to your note before saving'],
-    },
+    content: { type: String },
     metadata: {
-      folder_id: { type: Schema.Types.ObjectId, ref: 'Folder' },
+      folder_id: { type: String },
       color: { type: String, default: '' },
       bookmarked: { type: Boolean, default: false },
       tags: [

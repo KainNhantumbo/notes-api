@@ -1,17 +1,16 @@
 import PasswordValidator from 'password-validator';
-import { TPasswordValidatorResponse } from '../@types';
 
-export const validateEmail = (data: string): boolean => {
+export function validateEmail(data: string): boolean {
   const regex: RegExp = new RegExp(
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
   const result: RegExpExecArray | null = regex.exec(String(data));
   if (!result) return false;
   return true;
-};
+}
 
-export const validatePassword = async (data: string) =>
-  await new Promise((resolve) => {
+export async function validatePassword(data: string) {
+  return await new Promise((resolve) => {
     const schema = new PasswordValidator()
       .is()
       .min(8, 'The password should have a minimum of 8 characters')
@@ -28,3 +27,4 @@ export const validatePassword = async (data: string) =>
 
     resolve(schema.validate(data, { details: true }));
   });
+}

@@ -3,7 +3,7 @@ import {
   Response as IRes,
   NextFunction as INext,
 } from 'express';
-import { HandledFunctionType } from '../@types/index';
+import { HandledFunctionType } from '../types/index';
 
 /**
  * Wrapper function for global error handling.

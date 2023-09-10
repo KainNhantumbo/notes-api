@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import { validateEmail } from '../lib/validators';
-import type { IUser } from '../@types/models';
+import type { IUser } from '../types/models';
 
 const UserSchema = new Schema<IUser>(
   {
@@ -9,7 +9,7 @@ const UserSchema = new Schema<IUser>(
       type: String,
       trim: true,
       required: [true, 'First name must be provided'],
-      minlength: [4, 'First name field length is too short'],
+      minlength: [2, 'First name field length is too short'],
       maxlength: [32, 'First name field length is too long'],
     },
     last_name: {

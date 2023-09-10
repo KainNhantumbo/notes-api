@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IFolder } from '../@types/models';
+import { IFolder } from '../types/models';
 
 const FolderSchema = new Schema<IFolder>(
   {
