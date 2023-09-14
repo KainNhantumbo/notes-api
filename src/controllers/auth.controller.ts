@@ -62,7 +62,6 @@ export default class AuthController {
         id: String(foundUser._id),
         token: accessToken,
         email: foundUser.email,
-        profile_image: foundUser.profile_image?.url || '',
         name: `${foundUser.first_name} ${foundUser.last_name}`,
       });
   }
@@ -101,7 +100,6 @@ export default class AuthController {
     res.status(200).json({
       id: String(foundUser._id),
       token: accessToken,
-      profile_image: foundUser.profile_image?.url || '',
       email: foundUser.email,
       name: `${foundUser.first_name} ${foundUser.last_name}`,
     });
