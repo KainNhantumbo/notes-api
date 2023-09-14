@@ -31,8 +31,7 @@
   "license": "Apache License Version 2.0",
   "dependencies": {
     "@godaddy/terminus": "^4.12.1",
-    "cloudinary": "^1.40.0",
-     "bcrypt": "^5.1.0",
+    "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
