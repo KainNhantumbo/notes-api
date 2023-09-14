@@ -5,8 +5,6 @@ import Note from '../models/Note';
 import Settings from '../models/Settings';
 import Folder from '../models/Folder';
 import AppError from '../lib/app-error';
-import { randomUUID } from 'node:crypto';
-import { cloudinaryAPI } from '../config/cloudnary';
 import { validatePassword } from '../lib/validators';
 import { Request as IReq, Response as IRes } from 'express';
 
@@ -66,7 +64,7 @@ export default class UserController {
     let { user, ...userData } = req.body;
     const defaultFields = '-password -last_session';
 
-    const { profileImageData, password, ...data } = userData;
+    const { password, ...data } = userData;
 
     if (password) {
       if (String(password).length < 8)
@@ -91,27 +89,6 @@ export default class UserController {
       data.password = await bcrypt.hash(password, salt);
     }
 
-    if (profileImageData?.data) {
-      if (process.env.NODE_ENV === 'development') {
-        data.profile_image = {
-          id: profileImageData.id || randomUUID(),
-          url: profileImageData.data,
-        };
-      } else {
-        let result = await cloudinaryAPI.uploader.upload(
-          profileImageData.data,
-          {
-            public_id: profileImageData.id || undefined,
-            folder: '/sales-api/users/account',
-          }
-        );
-        data.profile_image = {
-          id: result.public_id,
-          url: result.secure_url,
-        };
-      }
-    }
-
     const updatedDoc = await User.findOneAndUpdate(
       { _id: user.id },
       { ...data },
@@ -125,7 +102,6 @@ export default class UserController {
 
   async deleteUser(req: IReq, res: IRes) {
     let { user } = req.body;
-
     await Folder.deleteMany({ created_by: user.id }).lean();
     await Note.deleteMany({ created_by: user.id }).lean();
     await Settings.deleteOne({ created_by: user.id }).lean();
@@ -137,33 +113,6 @@ export default class UserController {
         'Failed to delete user account. Please try again later.',
         400
       );
-
-    if (process.env.NODE_ENV !== 'development') {
-      await cloudinaryAPI.uploader.destroy(deletedDoc.profile_image.id, {
-        invalidate: true,
-      });
-    }
-    res.sendStatus(204);
-  }
-
-  async deleteAsset(req: IReq, res: IRes) {
-    const { user, assetId } = req.body;
-    if (!assetId)
-      throw new AppError('Delete operation failed: No asset ID provided.', 400);
-
-    const updatedDoc = await User.findOneAndUpdate(
-      { _id: user.id },
-      { profile_image: { id: '', url: '' } },
-      { runValidators: true, new: true, lean: true }
-    );
-
-    if (!updatedDoc) throw new AppError('Error: failed to update data', 500);
-
-    if (process.env.NODE_ENV !== 'development') {
-      await cloudinaryAPI.uploader.destroy(assetId, {
-        invalidate: true,
-      });
-    }
     res.sendStatus(204);
   }
 }
