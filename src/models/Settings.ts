@@ -8,7 +8,18 @@ const SettingsSchema = new Schema<TSettings>(
     editor: {
       auto_save: {
         enabled: { type: Boolean, default: true },
-        delay: { type: Number, default: 500 },
+        delay: {
+          type: Number,
+          default: 500,
+          max: [
+            20000,
+            'Maximum acceptable auto save delay time in milliseconds is 20000',
+          ],
+          min: [
+            300,
+            'Minimum acceptable auto save delay time in milliseconds is 300',
+          ],
+        },
       },
       font: {
         font_size: {
@@ -33,7 +44,10 @@ const SettingsSchema = new Schema<TSettings>(
         font_weight: {
           type: Number,
           default: 400,
-          enum: [400, 500, 600, 700, 800],
+          enum: {
+            values: [400, 500, 600, 700, 800],
+            message: 'Font weight must be in range of 400 to 800.',
+          },
         },
       },
       editing: {

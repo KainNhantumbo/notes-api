@@ -9,10 +9,11 @@ export default class SettingsController {
   }
 
   async updateSettings(req: IReq, res: IRes) {
-    const { user, ...data } = req.body;
+    const { user, ...incomming_data } = req.body;
+
     await Settings.findOneAndUpdate(
-      { _id: user.id },
-      { ...data },
+      { created_by: user.id },
+      { ...incomming_data },
       { runValidators: true, new: true, lean: true }
     );
     res.sendStatus(200);
