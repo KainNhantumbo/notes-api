@@ -11,7 +11,7 @@ export default class NoteController {
 
     const foundDoc = await Note.findOne({
       _id: noteId,
-      created_by: user.id,
+      created_by: user.id
     })
       .populate({ path: 'folder_id' })
       .select('-__v')
@@ -32,9 +32,9 @@ export default class NoteController {
         { content: { $regex: String(search), $options: 'i' } },
         {
           metadata: {
-            tags: { $in: { value: { $regex: String(search), $options: 'i' } } },
-          },
-        },
+            tags: { $in: { value: { $regex: String(search), $options: 'i' } } }
+          }
+        }
       ];
     }
 
@@ -74,11 +74,17 @@ export default class NoteController {
 
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
     if (!existingDoc)
-      throw new AppError('Failded to update note beacause it was not found.', 404);
+      throw new AppError(
+        'Failded to update note beacause it was not found.',
+        404
+      );
 
     if (data?.metadata?.folder_id) {
       if (!isValidObjectId(data?.metadata?.folder_id)) {
-        throw new AppError('Invalid note folder ID, please check and try again.', 400);
+        throw new AppError(
+          'Invalid note folder ID, please check and try again.',
+          400
+        );
       }
     }
 
@@ -98,11 +104,14 @@ export default class NoteController {
 
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
     if (!existingDoc)
-      throw new AppError('Failded to delete note beacause it was not found.', 404);
+      throw new AppError(
+        'Failded to delete note beacause it was not found.',
+        404
+      );
 
     const deletedDoc = await Note.findOneAndDelete({
       _id: noteId,
-      created_by: user.id,
+      created_by: user.id
     }).lean();
 
     if (!deletedDoc) throw new AppError('Failed to delete note data.', 500);
