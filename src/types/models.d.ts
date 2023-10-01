@@ -15,9 +15,7 @@ export interface INote {
   content: string;
   metadata: {
     folder_id: Schema.Types.ObjectId;
-    color: string;
-    bookmarked: boolean;
-    reminder: { time: Date; expired: boolean };
+    pinned: boolean;
     tags: { id: string; color: string; value: string }[];
     deleted: boolean;
     priority: string;
