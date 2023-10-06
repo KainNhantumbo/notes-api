@@ -1,12 +1,12 @@
 import { Schema, model } from 'mongoose';
-import { INote } from '../types/models';
+import { Note } from '../types/models';
 
-const NoteSchema = new Schema<INote>(
+const NoteSchema = new Schema<Note>(
   {
     title: {
       type: String,
       maxlength: [128, 'Title field is too long'],
-      default: 'Untitled',
+      default: 'Untitled'
     },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     content: { type: String },
@@ -17,27 +17,21 @@ const NoteSchema = new Schema<INote>(
         {
           id: { type: String, required: [true, 'Please provide tag ID'] },
           color: { type: String, required: [true, 'Please provide tag color'] },
-          value: { type: String, required: [true, 'Please provide tag value'] },
-        },
+          value: { type: String, required: [true, 'Please provide tag value'] }
+        }
       ],
       deleted: { type: Boolean, default: false },
       priority: {
         type: String,
         enum: ['none', 'low', 'medium', 'high'],
-        default: 'none',
+        default: 'none'
       },
       status: {
         type: String,
-        enum: [
-          'none',
-          'active',
-          'pending',
-          'reviewing',
-          'completed',
-        ],
-        default: 'none',
-      },
-    },
+        enum: ['none', 'active', 'pending', 'reviewing', 'completed'],
+        default: 'none'
+      }
+    }
   },
   { timestamps: true }
 );

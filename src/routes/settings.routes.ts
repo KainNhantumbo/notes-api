@@ -8,7 +8,7 @@ const controller = new SettingsController();
 
 router
   .route('/')
-  .get(authenticate, asyncWrapper(controller.getSettings))
-  .patch(authenticate, asyncWrapper(controller.updateSettings))
+  .get(authenticate, asyncWrapper(controller.geSettings))
+  .patch(authenticate, asyncWrapper(controller.updateSettings));
 
 export { router as settingsRoutes };

@@ -1,14 +1,14 @@
 import { FilterQuery } from 'mongoose';
 import Folder from '../models/Folder';
 import { Request as IReq, Response as IRes } from 'express';
-import { IFolder } from '../types/models';
+import { Folder as FolderType } from '../types/models';
 import AppError from '../lib/app-error';
 
 export default class FolderController {
   async getFolders(req: IReq, res: IRes) {
     const { user } = req.body;
     const { search, sort, offset, limit } = req.query;
-    const query: FilterQuery<IFolder> = { created_by: user.id };
+    const query: FilterQuery<FolderType> = { created_by: user.id };
 
     if (search) {
       query.name = { $regex: String(search), $options: 'i' };
@@ -70,7 +70,7 @@ export default class FolderController {
 
     const deletedDoc = await Folder.findOneAndDelete({
       _id: folderId,
-      created_by: user.id,
+      created_by: user.id
     }).lean();
     if (!deletedDoc) throw new AppError('Failed to delete folder data.', 500);
     res.sendStatus(204);

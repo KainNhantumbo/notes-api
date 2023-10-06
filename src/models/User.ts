@@ -1,23 +1,23 @@
 import * as bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import { validateEmail } from '../lib/validators';
-import type { IUser } from '../types/models';
+import type { User } from '../types/models';
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema<User>(
   {
     first_name: {
       type: String,
       trim: true,
       required: [true, 'First name must be provided'],
       minlength: [2, 'First name field length is too short'],
-      maxlength: [32, 'First name field length is too long'],
+      maxlength: [32, 'First name field length is too long']
     },
     last_name: {
       type: String,
       trim: true,
       required: [true, 'Last name must be provided'],
       minlength: [2, 'Last name field length is too short'],
-      maxlength: [32, 'Last name field length is too long'],
+      maxlength: [32, 'Last name field length is too long']
     },
     email: {
       type: String,
@@ -26,18 +26,18 @@ const UserSchema = new Schema<IUser>(
       lowercase: true,
       validate: {
         validator: validateEmail,
-        message: 'Please provide a valid email adress',
+        message: 'Please provide a valid email adress'
       },
       unique: true,
-      maxlength: [64, 'E-mail adress field length is too long'],
+      maxlength: [64, 'E-mail adress field length is too long']
     },
     password: {
       type: String,
       minlength: [6, 'The password must have at least 6 characters'],
-      required: [true, 'Please provide a password'],
+      required: [true, 'Please provide a password']
     },
     last_session: { type: Date, default: Date.now() },
-    settings: { type: Schema.Types.ObjectId, ref: 'Settings' },
+    settings: { type: Schema.Types.ObjectId, ref: 'Settings' }
   },
   { timestamps: true }
 );

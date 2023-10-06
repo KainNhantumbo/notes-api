@@ -42,7 +42,8 @@
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "mongoose": "^7.1.0",
-    "password-validator": "^5.3.0"
+    "password-validator": "^5.3.0",
+    "vitest": "^0.34.6"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.62",

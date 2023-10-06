@@ -1,8 +1,7 @@
 import { Schema, model } from 'mongoose';
-import type { TSettings } from '../types/models';
-import { editorThemeOptions } from '../data/app-data';
+import type { Settings } from '../types/models';
 
-const SettingsSchema = new Schema<TSettings>(
+const SettingsSchema = new Schema<Settings>(
   {
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     editor: {
@@ -13,64 +12,51 @@ const SettingsSchema = new Schema<TSettings>(
           default: 500,
           max: [
             20000,
-            'Maximum acceptable auto save delay time in milliseconds is 20000',
+            'Maximum acceptable auto save delay time in milliseconds is 20000'
           ],
           min: [
             300,
-            'Minimum acceptable auto save delay time in milliseconds is 300',
-          ],
-        },
+            'Minimum acceptable auto save delay time in milliseconds is 300'
+          ]
+        }
       },
       font: {
         font_size: {
           type: Number,
           min: [10, 'Minimum acceptable font size is 10'],
           max: [50, 'Maximum acceptable font size is 50'],
-          default: 16,
+          default: 16
         },
         line_height: {
           type: Number,
           min: [1, 'Minimum acceptable font height is 1'],
           max: [5, 'Maximum acceptable font height is 5'],
-          default: 1.6,
+          default: 1.6
         },
         font_family: {
           type: String,
           maxlength: [128, 'Reached max input values for font ily names'],
           minlength: [3, 'Please use a valid font family names'],
           default:
-            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'JetBrains Mono', 'Liberation Mono', 'Courier New', monospace",
+            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'JetBrains Mono', 'Liberation Mono', 'Courier New', monospace"
         },
         font_weight: {
           type: Number,
           default: 400,
           enum: {
             values: [400, 500, 600, 700, 800],
-            message: 'Font weight must be in range of 400 to 800.',
-          },
-        },
+            message: 'Font weight must be in range of 400 to 800.'
+          }
+        }
       },
       editing: {
-        line_numbers: { type: Boolean, default: false },
-        enable_toolbar: { type: Boolean, default: true },
-        tab_size: { type: Number, default: 2 },
-        enable_relative_line_numbers: { type: Boolean, default: false },
-        highlight_active_line: { type: Boolean, default: false },
-      },
+        enable_toolbar: { type: Boolean, default: true }
+      }
     },
     theme: {
-      ui_theme: {
-        type: String,
-        default: 'light',
-        enum: ['light', 'dark'],
-      },
-      editor_theme: {
-        type: String,
-        default: 'basic',
-        enum: editorThemeOptions,
-      },
-      automatic_ui_theme: { type: Boolean, default: true },
-    },
+      scheme: { type: String, default: 'light', enum: ['light', 'dark'] },
+      is_automatic: { type: Boolean, default: true }
+    }
   },
   { timestamps: true }
 );

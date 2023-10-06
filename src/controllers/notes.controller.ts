@@ -1,6 +1,6 @@
 import Note from '../models/Note';
 import AppError from '../lib/app-error';
-import { INote } from '../types/models';
+import type { Note as NoteType } from '../types/models';
 import { FilterQuery, isValidObjectId } from 'mongoose';
 import { Request as IReq, Response as IRes } from 'express';
 
@@ -24,7 +24,7 @@ export default class NoteController {
   async getAllNotes(req: IReq, res: IRes) {
     const { user } = req.body;
     const { search, sort, offset, limit, favorite, folder } = req.query;
-    const query: FilterQuery<INote> = { created_by: user.id };
+    const query: FilterQuery<NoteType> = { created_by: user.id };
 
     if (search) {
       query['$or'] = [

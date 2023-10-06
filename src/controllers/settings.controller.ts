@@ -2,7 +2,7 @@ import Settings from '../models/Settings';
 import { Request as IReq, Response as IRes } from 'express';
 
 export default class SettingsController {
-  async getSettings(req: IReq, res: IRes) {
+  async geSettings(req: IReq, res: IRes) {
     const { user } = req.body;
     const foundDoc = await Settings.findOne({ created_by: user.id }).lean();
     res.status(200).json({ ...foundDoc });

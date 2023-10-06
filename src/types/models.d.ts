@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export interface IUser {
+export interface User {
   first_name: string;
   last_name: string;
   email: string;
@@ -9,7 +9,7 @@ export interface IUser {
   settings: Schema.Types.ObjectId;
 }
 
-export interface INote {
+export interface Note {
   title: string;
   created_by: Schema.Types.ObjectId;
   content: string;
@@ -23,7 +23,7 @@ export interface INote {
   };
 }
 
-export interface IFolder {
+export interface Folder {
   name: string;
   created_by: Schema.Types.ObjectId;
   metadata: {
@@ -34,30 +34,17 @@ export interface IFolder {
   };
 }
 
-export type TSettings = {
+export type Settings = {
   created_by: Schema.Types.ObjectId;
+  theme: { scheme: string; is_automatic: boolean };
   editor: {
-    auto_save: {
-      enabled: boolean;
-      delay: number;
-    };
+    auto_save: { enabled: boolean; delay: number };
+    editing: { enable_toolbar: boolean };
     font: {
       font_size: number;
       line_height: number;
       font_family: string;
       font_weight: number;
     };
-    editing: {
-      line_numbers: boolean;
-      enable_toolbar: boolean;
-      enable_relative_line_numbers: boolean;
-      tab_size: number
-      highlight_active_line: boolean
-    };
-  };
-  theme: {
-    ui_theme: string;
-    editor_theme: string;
-    automatic_ui_theme: boolean;
   };
 };
