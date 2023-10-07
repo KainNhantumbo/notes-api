@@ -12,7 +12,7 @@ export interface User {
 export interface Note {
   title: string;
   created_by: Schema.Types.ObjectId;
-  content: string;
+  content: object;
   metadata: {
     folder_id: Schema.Types.ObjectId;
     pinned: boolean;

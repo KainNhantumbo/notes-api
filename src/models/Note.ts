@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { Note } from '../types/models';
+import AppError from '../lib/app-error';
 
 const NoteSchema = new Schema<Note>(
   {
@@ -9,7 +10,7 @@ const NoteSchema = new Schema<Note>(
       default: 'Untitled'
     },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String },
+    content: { type: Object },
     metadata: {
       folder_id: { type: String },
       pinned: { type: Boolean, default: false },
