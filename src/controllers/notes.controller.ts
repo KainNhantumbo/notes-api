@@ -105,7 +105,7 @@ export default class NoteController {
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
     if (!existingDoc)
       throw new AppError(
-        'Failded to delete note beacause it was not found.',
+        'Failded to delete note beacause the requested note was not found.',
         404
       );
 
@@ -116,5 +116,14 @@ export default class NoteController {
 
     if (!deletedDoc) throw new AppError('Failed to delete note data.', 500);
     res.sendStatus(204);
+  }
+
+  async deleteTrashNotes(req: IReq, res: IRes) {
+    const { user } = req.body;
+    await Note.deleteMany(
+      { created_by: user.id, metadata: { deleted: true } },
+      { lean: true }
+    );
+    res.status(204);
   }
 }
