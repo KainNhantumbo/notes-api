@@ -1,5 +1,6 @@
 import Note from '../models/Note';
 import AppError from '../lib/app-error';
+import { sanitizer } from '../lib/content-sanitizer';
 import type { Note as NoteType } from '../types/models';
 import { FilterQuery, isValidObjectId } from 'mongoose';
 import { Request as IReq, Response as IRes } from 'express';
@@ -63,7 +64,7 @@ export default class NoteController {
   }
 
   async updateNote(req: IReq, res: IRes) {
-    const { user, ...data } = req.body;
+    const { user, content, ...data } = req.body;
     const { id: noteId } = req.params;
 
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
@@ -82,9 +83,11 @@ export default class NoteController {
       }
     }
 
+    const cleanContent = await sanitizer(String(content));
+
     const updatedDoc = await Note.findOneAndUpdate(
       { _id: noteId, created_by: user.id },
-      { ...data },
+      { ...data, content: cleanContent },
       { lean: true, runValidators: true, new: true }
     );
 
