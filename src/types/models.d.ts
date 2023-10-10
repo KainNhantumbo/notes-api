@@ -11,16 +11,14 @@ export interface User {
 
 export interface Note {
   title: string;
+  folder_id: Schema.Types.ObjectId;
   created_by: Schema.Types.ObjectId;
   content: object;
-  metadata: {
-    folder_id: Schema.Types.ObjectId;
-    pinned: boolean;
-    tags: { id: string; color: string; value: string }[];
-    deleted: boolean;
-    priority: string;
-    status: string;
-  };
+  pinned: boolean;
+  tags: { id: string; color: string; value: string }[];
+  deleted: boolean;
+  priority: string;
+  status: string;
 }
 
 export interface Folder {

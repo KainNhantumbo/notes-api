@@ -23,7 +23,7 @@ export default class NoteController {
 
   async getAllNotes(req: IReq, res: IRes) {
     const { user } = req.body;
-    const { search, sort, offset, limit, favorite, folder } = req.query;
+    const { search, sort, offset, limit, status, priority } = req.query;
     const query: FilterQuery<NoteType> = { created_by: user.id };
 
     if (search) {
@@ -31,20 +31,16 @@ export default class NoteController {
         { title: { $regex: String(search), $options: 'i' } },
         { content: { $regex: String(search), $options: 'i' } },
         {
-          metadata: {
-            tags: { $in: { value: { $regex: String(search), $options: 'i' } } }
+          tags: {
+            $in: { value: { $regex: String(search), $options: 'i' } }
           }
         }
       ];
     }
 
-    if (favorite) {
-      query.metadata = { favorite: Boolean(Number(favorite)) };
-    }
+    if (status) query.status = String(status);
 
-    if (folder) {
-      query.metadata = { folder: String(folder) };
-    }
+    if (priority) query.priority = String(priority);
 
     let queryResult = Note.find({ ...query });
 
@@ -54,9 +50,7 @@ export default class NoteController {
       queryResult = queryResult.sort({ updatedAt: 'desc' });
     }
 
-    if (offset && limit) {
-      queryResult.skip(Number(offset)).limit(Number(limit));
-    }
+    if (offset && limit) queryResult.skip(Number(offset)).limit(Number(limit));
 
     const foundDocs = await queryResult.lean();
     res.status(200).json([...foundDocs]);
@@ -121,9 +115,9 @@ export default class NoteController {
   async deleteTrashNotes(req: IReq, res: IRes) {
     const { user } = req.body;
     await Note.deleteMany(
-      { created_by: user.id, metadata: { deleted: true } },
+      { created_by: user.id, deleted: true },
       { lean: true }
     );
-    res.status(204);
+    res.sendStatus(204);
   }
 }
