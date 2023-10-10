@@ -11,9 +11,9 @@ export interface User {
 
 export interface Note {
   title: string;
-  folder_id: Schema.Types.ObjectId;
+  folder_id: string;
   created_by: Schema.Types.ObjectId;
-  content: object;
+  content: string;
   pinned: boolean;
   tags: { id: string; color: string; value: string }[];
   deleted: boolean;

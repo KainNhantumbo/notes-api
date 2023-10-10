@@ -32,7 +32,7 @@ export default class NoteController {
         { content: { $regex: String(search), $options: 'i' } },
         {
           tags: {
-            $in: { value: { $regex: String(search), $options: 'i' } }
+            $elemMatch: { value: { $regex: String(search), $options: 'i' } }
           }
         }
       ];

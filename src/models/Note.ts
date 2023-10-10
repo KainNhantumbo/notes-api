@@ -10,8 +10,8 @@ const NoteSchema = new Schema<Note>(
       default: 'Untitled'
     },
     created_by: { type: Schema.Types.ObjectId, ref: 'User' },
-    folder_id: { type: Schema.Types.ObjectId, ref: 'Folder' },
-    content: { type: Object },
+    folder_id: { type: String },
+    content: { type: String },
     pinned: { type: Boolean, default: false },
     deleted: { type: Boolean, default: false },
     tags: [
