@@ -5,7 +5,11 @@ export async function sanitizer(content: string): Promise<string> {
     const result = sanitizeHtml(content, {
       enforceHtmlBoundary: false,
       allowVulnerableTags: false,
-      disallowedTagsMode: 'recursiveEscape'
+      disallowedTagsMode: 'discard',
+      allowedAttributes: {
+        '*': ['class', 'style', 'contenteditable', 'type', 'data-*']
+      },
+      nestingLimit: 50
     });
     resolve(result);
   });
