@@ -38,7 +38,7 @@ const SettingsSchema = new Schema<Settings>(
           maxlength: [128, 'Reached max input values for font ily names'],
           minlength: [3, 'Please use a valid font family names'],
           default:
-            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'JetBrains Mono', 'Liberation Mono', 'Courier New', monospace"
+            "Inter, 'SF Display', 'Segoe UI', 'Noto Sans', Roboto, ' Sans', Tahoma, Geneva, Verdana, sans-serif"
         },
         font_weight: {
           type: Number,
