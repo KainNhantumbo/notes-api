@@ -38,7 +38,7 @@ const SettingsSchema = new Schema<Settings>(
           maxlength: [128, 'Reached max input values for font ily names'],
           minlength: [3, 'Please use a valid font family names'],
           default:
-            "Inter, 'SF Display', 'Segoe UI', 'Noto Sans', Roboto, ' Sans', Tahoma, Geneva, Verdana, sans-serif"
+            "Inter, 'SF Display', 'Segoe UI', 'Noto Sans', Roboto, 'Open Sans', Helvetica, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
         },
         font_weight: {
           type: Number,

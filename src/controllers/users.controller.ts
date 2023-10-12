@@ -67,14 +67,14 @@ export default class UserController {
     const { password, ...data } = userData;
 
     if (password) {
-      if (String(password).length < 8)
-        throw new AppError('Password must have at least 8 characters.', 400);
-
       const validationResult = await validatePassword(String(password));
       if (validationResult === false)
-        throw new AppError('Please use a strong password.', 400);
+        throw new AppError(
+          'Please use a strong password that contains at least 2 special characters.',
+          400
+        );
 
-      if (Array.isArray(validationResult)) {
+      if (Array.isArray(validationResult) && validationResult.length > 0) {
         const response: string = validationResult
           .map((obj) => obj?.message)
           .reduce((acc, current) => {

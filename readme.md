@@ -1,19 +1,19 @@
 # Notes REST API (Node.JS + Typescript + Mongo DB)
 
-This REST API server application is built to serve its endpoints to Choconotey application ([see the source code here](https://github.com/KainNhantumbo/notes-api)), which is currently under development.
+This REST API server application is built to serve its endpoints to Choconotey application ([see the source code here](https://github.com/KainNhantumbo/notes-api)), which is currently under active development.
 
-<!-- **Access this app live at: [https://bug-tracker-pied.vercel.app](https://bug-tracker-pied.vercel.app)** -->
+**Access this app live at: [https://choconotey-demo.vercel.app](https://choconotey-demo.vercel.app)**
 
 ## Project status
 
-This project still under development. Further details of its bulding, software architecture and features will be given as the app grows.
+This project is under active development, it means that new features a being backed at meanwhile and to catch all them please refer to the front-end app repository [here](https://github.com/KainNhantumbo/notes-app).
 
 ## Current features
 
 ### - Release v1.0.0
 - Handle create, read, update and delete notes, folder and users on the database.
 - Handle user login, registration and authentication with jwt (JSON web tokens) strategy.
-- Serve all data to a separated front-end Next.JS application.
+- Serve all data to a separated front-end React.JS application.
 
 ### Scripts for testing
 
