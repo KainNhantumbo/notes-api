@@ -58,6 +58,7 @@ export type EditorTools = {
   strike: boolean;
   textAlign: boolean;
   highlight: boolean;
+  image: boolean;
   superscript: boolean;
   subscript: boolean;
   code: boolean;

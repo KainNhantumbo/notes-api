@@ -30,6 +30,7 @@ const SettingsSchema = new Schema<Settings>(
         strike: { type: Boolean, default: true },
         textAlign: { type: Boolean, default: true },
         highlight: { type: Boolean, default: true },
+        image: { type: Boolean, default: true },
         superscript: { type: Boolean, default: true },
         subscript: { type: Boolean, default: true },
         code: { type: Boolean, default: true },
