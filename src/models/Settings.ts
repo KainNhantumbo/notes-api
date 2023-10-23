@@ -20,6 +20,28 @@ const SettingsSchema = new Schema<Settings>(
           ]
         }
       },
+      toolbar: {
+        undo: { type: Boolean, default: true },
+        redo: { type: Boolean, default: true },
+        bold: { type: Boolean, default: true },
+        italic: { type: Boolean, default: true },
+        headings: { type: Boolean, default: true },
+        underline: { type: Boolean, default: true },
+        strike: { type: Boolean, default: true },
+        textAlign: { type: Boolean, default: true },
+        highlight: { type: Boolean, default: true },
+        superscript: { type: Boolean, default: true },
+        subscript: { type: Boolean, default: true },
+        code: { type: Boolean, default: true },
+        paragraph: { type: Boolean, default: true },
+        bulletList: { type: Boolean, default: true },
+        orderedList: { type: Boolean, default: true },
+        taskList: { type: Boolean, default: true },
+        codeBlock: { type: Boolean, default: true },
+        blockquote: { type: Boolean, default: true },
+        horizontalRuler: { type: Boolean, default: true },
+        hardBreak: { type: Boolean, default: true }
+      },
       font: {
         font_size: {
           type: Number,

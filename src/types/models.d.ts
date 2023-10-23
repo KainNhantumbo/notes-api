@@ -32,7 +32,7 @@ export interface Folder {
   };
 }
 
-export type Settings = {
+export interface Settings {
   created_by: Schema.Types.ObjectId;
   theme: { scheme: string; is_automatic: boolean };
   editor: {
@@ -44,5 +44,29 @@ export type Settings = {
       font_family: string;
       font_weight: number;
     };
+    toolbar: EditorTools;
   };
+}
+
+export type EditorTools = {
+  undo: boolean;
+  redo: boolean;
+  bold: boolean;
+  italic: boolean;
+  headings: boolean;
+  underline: boolean;
+  strike: boolean;
+  textAlign: boolean;
+  highlight: boolean;
+  superscript: boolean;
+  subscript: boolean;
+  code: boolean;
+  paragraph: boolean;
+  bulletList: boolean;
+  orderedList: boolean;
+  taskList: boolean;
+  codeBlock: boolean;
+  blockquote: boolean;
+  horizontalRuler: boolean;
+  hardBreak: boolean;
 };
