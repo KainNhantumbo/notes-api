@@ -35,7 +35,6 @@ const SettingsSchema = new Schema<Settings>(
         subscript: { type: Boolean, default: true },
         code: { type: Boolean, default: true },
         paragraph: { type: Boolean, default: true },
-        table: { type: Boolean, default: true },
         bulletList: { type: Boolean, default: true },
         orderedList: { type: Boolean, default: true },
         taskList: { type: Boolean, default: true },

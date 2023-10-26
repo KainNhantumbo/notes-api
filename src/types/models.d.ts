@@ -63,7 +63,6 @@ export type EditorTools = {
   subscript: boolean;
   code: boolean;
   paragraph: boolean;
-  table: boolean;
   bulletList: boolean;
   orderedList: boolean;
   taskList: boolean;
