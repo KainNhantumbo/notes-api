@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import { debug } from 'node:util';
-import { log } from 'node:console';
+import { info } from 'node:console';
 import terminus from '@godaddy/terminus';
 import type { AppProps } from '../types';
+import swaggerDocs from '../lib/swagger';
+import { notFoundRoute } from '../routes/404';
+import ErrorHandler from '../lib/error-handler';
 
 export default class Bootstrap {
   private readonly props: AppProps;
@@ -16,7 +19,12 @@ export default class Bootstrap {
       this.shutdown();
       await mongoose.connect(this.props.dbUri);
       this.props.app.listen(this.props.port, () => {
-        log(`Server running... Port: ${this.props.port}`);
+        info(`Server running... Port: ${this.props.port}`);
+        swaggerDocs(this.props.app, this.props.port);
+
+        // error handlers
+        this.props.app.use(notFoundRoute);
+        this.props.app.use(ErrorHandler.handler);
       });
     } catch (error) {
       console.error(error);
@@ -37,10 +45,10 @@ export default class Bootstrap {
         debug('Signal received: closing HTTP server.');
       },
       onShutdown: async function () {
-        log('Cleanup finished, server is shutting down.');
+        info('Cleanup finished, server is shutting down.');
       },
       timeout: 15000,
-      signals: ['SIGINT', 'SIGTERM'],
+      signals: ['SIGINT', 'SIGTERM']
     });
   }
 }

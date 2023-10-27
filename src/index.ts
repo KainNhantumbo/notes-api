@@ -1,13 +1,11 @@
-import express from 'express';
 import helmet from 'helmet';
+import express from 'express';
+import * as dotenv from 'dotenv';
 import Bootstrap from './modules/app';
 import compression from 'compression';
-import ErrorHandler from './lib/error-handler';
 import cookieParser from 'cookie-parser';
-import * as dotenv from 'dotenv';
 import { corsOptions } from './config/cors';
 import { rateLimiter } from './config/rate-limiter';
-import { notFoundRoute } from './routes/404';
 import { authRoutes } from './routes/auth.routes';
 import { userRoutes } from './routes/users.routes';
 import { folderRoutes } from './routes/folders.routes';
@@ -34,10 +32,6 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/notes', notesRoutes);
 app.use('/api/v1/folders', folderRoutes);
 app.use('/api/v1/settings', settingsRoutes);
-
-// error handlers
-app.use(notFoundRoute);
-app.use(ErrorHandler.handler);
 
 const server = new Bootstrap({ app, port: PORT, dbUri });
 server.start();
