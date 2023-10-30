@@ -12,9 +12,10 @@ export default class Bootstrap {
 
   constructor(props: AppProps) {
     this.props = props;
+    this.start()
   }
 
-  async start() {
+  private async start() {
     try {
       this.shutdown();
       await mongoose.connect(this.props.dbUri);

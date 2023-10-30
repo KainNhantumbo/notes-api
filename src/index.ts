@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { corsOptions } from './config/cors';
 import { rateLimiter } from './config/rate-limiter';
 import { authRoutes } from './routes/auth.routes';
+import { healthRoutes } from './routes/api.routes';
 import { userRoutes } from './routes/users.routes';
 import { folderRoutes } from './routes/folders.routes';
 import { notesRoutes } from './routes/notes.routes';
@@ -23,15 +24,15 @@ app.use(helmet());
 app.use(corsOptions);
 app.use(rateLimiter);
 app.use(compression());
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '5mb' }));
 app.use(cookieParser());
 
 // routes
+app.use('/api/v1/healthcheck', healthRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/notes', notesRoutes);
 app.use('/api/v1/folders', folderRoutes);
 app.use('/api/v1/settings', settingsRoutes);
 
-const server = new Bootstrap({ app, port: PORT, dbUri });
-server.start();
+new Bootstrap({ app, port: PORT, dbUri });

@@ -6,7 +6,20 @@ import swaggerUI from 'swagger-ui-express';
 const options: Options = {
   definition: {
     openapi: '3.0.0',
-    info: { title: 'Choconotey API', version: '1.1.0' },
+    info: {
+      title: 'Choconotey API',
+      description: 'Choconotey Server Rest API Application',
+      version: '1.1.0',
+      contact: {
+        name: 'Kain Nhantumbo',
+        url: 'codenut-dev.vercel.app',
+        email: 'nhantumbok@gmail.com'
+      },
+      license: {
+        name: 'Apache License Version 2.0',
+        url: 'http://www.apache.org/licenses'
+      }
+    },
     components: {
       securitySchemas: {
         bearerAuth: {
