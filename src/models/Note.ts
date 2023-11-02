@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import { Note } from '../types/models';
-import AppError from '../lib/app-error';
 
 const NoteSchema = new Schema<Note>(
   {

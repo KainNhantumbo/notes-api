@@ -18,6 +18,7 @@
     "strict": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
+    "noUnusedLocals": true,
     "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/*"],

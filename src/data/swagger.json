@@ -46,6 +46,172 @@
     }
   },
   "paths": {
+    "/api/v1/settings": {
+      "get": {
+        "tags": ["tags"],
+        "summary": "Get settings",
+        "description": "Get user settings",
+        "security": [{ "bearerAuth": [{}] }],
+        "responses": {
+          "200": {
+            "description": "Request succeded successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": { "type": "string" },
+                    "created_by": { "type": "string" },
+                    "editor": {
+                      "type": "object",
+                      "properties": {
+                        "auto_save": {
+                          "type": "object",
+                          "properties": {
+                            "enabled": "boolean",
+                            "delay": "int32"
+                          }
+                        }
+                      },
+                      "editing": {
+                        "type": "object",
+                        "properties": {
+                          "enable_toolbar": "boolean"
+                        }
+                      },
+                      "font": {
+                        "type": "object",
+                        "properties": {
+                          "font_size": "int32",
+                          "line_height": "int32",
+                          "font_family": "string",
+                          "font_weight": "int32"
+                        }
+                      },
+                      "toolbar": {
+                        "type": "object",
+                        "properties": {
+                          "undo": "boolean",
+                          "redo": "boolean",
+                          "bold": "boolean",
+                          "italic": "boolean",
+                          "headings": "boolean",
+                          "underline": "boolean",
+                          "strike": "boolean",
+                          "textAlign": "boolean",
+                          "highlight": "boolean",
+                          "image": "boolean",
+                          "superscript": "boolean",
+                          "subscript": "boolean",
+                          "code": "boolean",
+                          "paragraph": "boolean",
+                          "bulletList": "boolean",
+                          "orderedList": "boolean",
+                          "taskList": "boolean",
+                          "codeBlock": "boolean",
+                          "blockquote": "boolean",
+                          "horizontalRuler": "boolean",
+                          "hardBreak": "boolean"
+                        }
+                      }
+                    },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      },
+      "patch": {
+        "tags": ["settings"],
+        "summary": "Update settings",
+        "description": "Updates user settings",
+        "security": [{ "bearerAuth": [{}] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "editor": {
+                    "type": "object",
+                    "properties": {
+                      "auto_save": {
+                        "type": "object",
+                        "properties": {
+                          "enabled": "boolean",
+                          "delay": "int32"
+                        }
+                      }
+                    },
+                    "editing": {
+                      "type": "object",
+                      "properties": {
+                        "enable_toolbar": "boolean"
+                      }
+                    },
+                    "font": {
+                      "type": "object",
+                      "properties": {
+                        "font_size": "int32",
+                        "line_height": "int32",
+                        "font_family": "string",
+                        "font_weight": "int32"
+                      }
+                    },
+                    "toolbar": {
+                      "type": "object",
+                      "properties": {
+                        "undo": "boolean",
+                        "redo": "boolean",
+                        "bold": "boolean",
+                        "italic": "boolean",
+                        "headings": "boolean",
+                        "underline": "boolean",
+                        "strike": "boolean",
+                        "textAlign": "boolean",
+                        "highlight": "boolean",
+                        "image": "boolean",
+                        "superscript": "boolean",
+                        "subscript": "boolean",
+                        "code": "boolean",
+                        "paragraph": "boolean",
+                        "bulletList": "boolean",
+                        "orderedList": "boolean",
+                        "taskList": "boolean",
+                        "codeBlock": "boolean",
+                        "blockquote": "boolean",
+                        "horizontalRuler": "boolean",
+                        "hardBreak": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request succeded successfully."
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      }
+    },
     "/api/v1/notes": {
       "get": {
         "tags": ["notes"],
@@ -58,60 +224,42 @@
             "in": "query",
             "description": "query text string",
             "required": false,
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
+            "schema": { "type": "string", "format": "string" }
           },
           "sortParam": {
             "name": "sort",
             "in": "query",
             "description": "sort notes order by",
             "required": false,
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
+            "schema": { "type": "string", "format": "string" }
           },
           "statusParam": {
             "name": "status",
             "in": "query",
             "description": "query notes by its status",
             "required": false,
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
+            "schema": { "type": "string", "format": "string" }
           },
           "priorityParam": {
             "name": "priority",
             "in": "query",
             "description": "query notes by its priority",
             "required": false,
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
+            "schema": { "type": "string", "format": "string" }
           },
           "offsetParam": {
             "name": "offset",
             "in": "query",
             "description": "number of items to skip",
             "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "schema": { "type": "string", "format": "int32" }
           },
           "limitParam": {
             "name": "limit",
             "in": "query",
             "description": "max items to return",
             "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "schema": { "type": "string", "format": "int32" }
           }
         },
         "responses": {
@@ -311,7 +459,9 @@
                   "properties": {
                     "first_name": { "type": "string" },
                     "last_name": { "type": "string" },
-                    "email": { "type": "string" }
+                    "email": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
                   }
                 }
               }
