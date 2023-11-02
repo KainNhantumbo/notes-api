@@ -20,6 +20,12 @@ const options: Options = {
         url: 'http://www.apache.org/licenses'
       }
     },
+    servers: [
+      {
+        url: 'http://localhost:5700',
+        description: 'Development server'
+      }
+    ],
     components: {
       securitySchemas: {
         bearerAuth: {
@@ -39,9 +45,10 @@ const options: Options = {
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+import swaggerDocsJSON from '../data/swagger.json'
 
 export default function swaggerDocs(app: Application, port: number) {
-  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocsJSON));
 
   app.get('docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');

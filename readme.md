@@ -1,6 +1,8 @@
-# Notes REST API (Node.JS + Typescript + Mongo DB)
+# Choconotey REST API (Node.JS + Typescript + Mongo DB)
 
 This REST API server application is built to serve its endpoints to Choconotey application ([see the source code here](https://github.com/KainNhantumbo/notes-api)), which is currently under active development.
+
+**See the API Documentation at: [https://choconotey-api-demo.onrender.com/docs](https://choconotey-api-demo.onrender.com/docs)**
 
 **Access this app live at: [https://choconotey-demo.vercel.app](https://choconotey-demo.vercel.app)**
 
@@ -11,6 +13,7 @@ This project is under active development, it means that new features a being bac
 ## Current features
 
 ### - Release v1.0.0
+
 - Handle create, read, update and delete notes, folder and users on the database.
 - Handle user login, registration and authentication with jwt (JSON web tokens) strategy.
 - Serve all data to a separated front-end React.JS application.
@@ -42,8 +45,8 @@ Builds and starts the server in prodution.
 
 E-mail: [nhantumbok@gmail.com](nhantumbok@gmail.com 'Send an e-mail')\
 Github: [https://github.com/KainNhantumbo](https://github.com/KainNhantumbo 'See my github profile')  
-Portfolio: [https://portifolio-dev-mu.vercel.app](https://portifolio-dev-mu.vercel.app 'See my portfolio website')\
-My Blog: [https://publish-it-programming.vercel.app](https://publish-it-programming.vercel.app 'Visit my blog site')
+Portfolio: [https://codenut-dev.vercel.app](https://codenut-dev.vercel.app 'See my portfolio website')\
+My Blog: [https://codenut-dev.vercel.app/blog](https://codenut-dev.vercel.app/blog 'Visit my blog site')
 
 #### If you like this project, let me know by leaving a star on this repository so I can keep improving this app.😊😘
 
