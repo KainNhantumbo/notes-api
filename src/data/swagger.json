@@ -25,11 +25,12 @@
     }
   ],
   "components": {
-    "securitySchemas": {
+    "securitySchemes": {
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "in": "header"
       }
     },
     "schemas": {
@@ -45,23 +46,292 @@
     }
   },
   "paths": {
+    "/api/v1/notes": {
+      "get": {
+        "tags": ["notes"],
+        "summary": "Get notes",
+        "description": "Get a list of user notes",
+        "security": [{ "bearerAuth": [{}] }],
+        "parameters": {
+          "searchParam": {
+            "name": "search",
+            "in": "query",
+            "description": "query text string",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "sortParam": {
+            "name": "sort",
+            "in": "query",
+            "description": "sort notes order by",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "statusParam": {
+            "name": "status",
+            "in": "query",
+            "description": "query notes by its status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "priorityParam": {
+            "name": "priority",
+            "in": "query",
+            "description": "query notes by its priority",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "offsetParam": {
+            "name": "offset",
+            "in": "query",
+            "description": "number of items to skip",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "limitParam": {
+            "name": "limit",
+            "in": "query",
+            "description": "max items to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "title": { "type": "string" },
+                      "content": { "type": "string" },
+                      "pinned": { "type": "boolean" },
+                      "deleted": { "type": "boolean" },
+                      "created_by": { "type": "string" },
+                      "folder_id": { "type": "string" },
+                      "tags": { "type": "array" },
+                      "priority": { "type": "string" },
+                      "status": { "type": "string" },
+                      "createdAt": { "type": "string" },
+                      "updatedAt": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found."
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      },
+      "post": {
+        "tags": ["notes"],
+        "summary": "Create note",
+        "description": "Creates a new note",
+        "security": [{ "bearerAuth": [{}] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "required": true }
+                }
+              },
+              "examples": {
+                "note": {
+                  "value": {
+                    "tytle": "List of important things to do in the summer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note created successfully"
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      }
+    },
+    "/api/v1/notes/{id}": {
+      "get": {
+        "tags": ["notes"],
+        "summary": "Get note",
+        "description": "Get note by the given id",
+        "security": [{ "bearerAuth": [{}] }],
+        "responses": {
+          "201": {
+            "description": "Note created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": { "type": "string" },
+                    "title": { "type": "string" },
+                    "content": { "type": "string" },
+                    "pinned": { "type": "boolean" },
+                    "deleted": { "type": "boolean" },
+                    "created_by": { "type": "string" },
+                    "folder_id": { "type": "string" },
+                    "tags": { "type": "array" },
+                    "priority": { "type": "string" },
+                    "status": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "404": {
+            "description": "Note not found."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      },
+      "patch": {
+        "tags": ["notes"],
+        "summary": "Update note",
+        "description": "Updates a note by the given id",
+        "security": [{ "bearerAuth": [{}] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "content": { "type": "string" },
+                    "pinned": { "type": "boolean" },
+                    "deleted": { "type": "boolean" },
+                    "created_by": { "type": "string" },
+                    "folder_id": { "type": "string" },
+                    "tags": { "type": "array" },
+                    "priority": { "type": "string" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Note updated successfully"
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "404": {
+            "description": "Note not found."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["notes"],
+        "summary": "Delete note",
+        "description": "Deletes a note by the given id",
+        "responses": {
+          "204": {
+            "description": "Note deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "404": {
+            "description": "Note not found."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
+        }
+      }
+    },
     "/api/v1/users": {
       "get": {
         "tags": ["users"],
-        "summary": "Gets user data",
+        "summary": "User data",
+        "description": "Sends a requested user account data.",
+        "security": [{ "bearerAuth": [{}] }],
         "responses": {
           "200": {
-            "description": "user data"
+            "description": "Request succeded successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "first_name": { "type": "string" },
+                    "last_name": { "type": "string" },
+                    "email": { "type": "string" }
+                  }
+                }
+              }
+            }
           },
-          "400": {
-            "description": "user not found"
+          "404": {
+            "description": "User not found."
           },
-          "401": "Unauthorized error when sending empty or invalid credentials"
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
         }
       },
       "post": {
         "tags": ["users"],
-        "summary": "Creates a new user",
+        "summary": "Create user",
+        "description": "Creates a new user account",
         "requestBody": {
           "content": {
             "application/json": {
@@ -83,10 +353,10 @@
         },
         "responses": {
           "200": {
-            "description": "user created successfully"
+            "description": "User account created successfully."
           },
           "400": {
-            "description": "Bad or unrecognized data schema format error"
+            "description": "Bad or unrecognized data schema format error."
           },
           "409": {
             "description": "Data conflict error"
@@ -95,7 +365,9 @@
       },
       "patch": {
         "tags": ["users"],
-        "summary": "Updates user data",
+        "summary": "Update user",
+        "description": "Updates user account data",
+        "security": [{ "bearerAuth": [{}] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -112,22 +384,37 @@
         },
         "responses": {
           "200": {
-            "description": "user updated successfully"
+            "description": "User updated successfully"
           },
           "400": {
-            "description": "Bad or unrecognized data schema format error"
+            "description": "Bad or unrecognized data schema format error."
           },
-          "401": "Unauthorized error when sending empty or invalid credentials"
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "429": {
+            "description": "Too many requests."
+          }
         }
       },
       "delete": {
         "tags": ["users"],
-        "summary": "Deletes all user data and account",
+        "summary": "Delete user",
+        "description": "Deletes all user data and account",
+        "security": [{ "bearerAuth": [{}] }],
         "responses": {
           "204": {
             "description": "user deleted successfully"
           },
-          "401": "Unauthorized error when sending empty or invalid credentials"
+          "401": {
+            "description": "Unauthorized error when sending empty or invalid credentials."
+          },
+          "404": {
+            "description": "User not found."
+          }
         }
       }
     }
