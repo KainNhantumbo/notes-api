@@ -110,7 +110,7 @@ export default class UserController {
 
     if (!deletedDoc)
       throw new AppError(
-        'Failed to delete user account. Please try again later.',
+        'Failed to delete your account. Please, try again later.',
         400
       );
     res.sendStatus(204);

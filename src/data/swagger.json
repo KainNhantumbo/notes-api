@@ -18,6 +18,10 @@
     {
       "url": "http://localhost:5700",
       "description": "Development server"
+    },
+    {
+      "url": "https://choconotey-api-demo.onrender.com",
+      "description": "Production server"
     }
   ],
   "components": {
@@ -27,11 +31,105 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "first_name": { "type": "string", "required": true },
+          "last_name": { "type": "string", "required": true },
+          "email": { "type": "string", "required": true },
+          "password": { "type": "string", "required": true }
+        }
+      }
     }
   },
-  "security": [
-    {
-      "bearerAuth": []
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Gets user data",
+        "responses": {
+          "200": {
+            "description": "user data"
+          },
+          "400": {
+            "description": "user not found"
+          },
+          "401": "Unauthorized error when sending empty or invalid credentials"
+        }
+      },
+      "post": {
+        "tags": ["users"],
+        "summary": "Creates a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "first_name": "John",
+                    "last_name": "Doe",
+                    "password": "@@12345##",
+                    "email": "john@mail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user created successfully"
+          },
+          "400": {
+            "description": "Bad or unrecognized data schema format error"
+          },
+          "409": {
+            "description": "Data conflict error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users"],
+        "summary": "Updates user data",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": { "type": "string", "required": true },
+                  "last_name": { "type": "string", "required": true },
+                  "password": { "type": "string", "required": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user updated successfully"
+          },
+          "400": {
+            "description": "Bad or unrecognized data schema format error"
+          },
+          "401": "Unauthorized error when sending empty or invalid credentials"
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Deletes all user data and account",
+        "responses": {
+          "204": {
+            "description": "user deleted successfully"
+          },
+          "401": "Unauthorized error when sending empty or invalid credentials"
+        }
+      }
     }
-  ]
+  }
 }
