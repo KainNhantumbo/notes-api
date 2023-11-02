@@ -46,6 +46,35 @@
     }
   },
   "paths": {
+    "/api/v1/healthcheck": {
+      "get": {
+        "tags": ["health", "handshake", "healthcheck"],
+        "summary": "Get API status",
+        "description": "Performs a handshake/healthcheck to the server",
+        "responses": {
+          "200": {
+            "description": "Request succeded successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "int32" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
     "/api/v1/settings": {
       "get": {
         "tags": ["tags"],
