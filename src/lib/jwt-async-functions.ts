@@ -6,10 +6,14 @@ import * as jwt from 'jsonwebtoken';
  * @param exp time to token expire
  * @returns Promise<unknown>
  */
-function createToken(data: object, secret: string, exp: string | number) {
+export function createToken(
+  data: object,
+  secret: string,
+  exp: string | number
+) {
   return new Promise((resolve): void => {
     const token = jwt.sign({ ...data }, secret, {
-      expiresIn: exp,
+      expiresIn: exp
     });
     resolve(token);
   });
@@ -21,11 +25,9 @@ function createToken(data: object, secret: string, exp: string | number) {
  * @param secret string
  * @returns Promise<unknown>
  */
-function verifyToken(token: string, secret: string) {
+export function verifyToken(token: string, secret: string) {
   return new Promise((resolve): void => {
     const result = jwt.verify(token, secret);
     resolve(result);
   });
 }
-
-export { createToken, verifyToken };

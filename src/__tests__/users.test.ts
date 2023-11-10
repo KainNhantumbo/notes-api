@@ -1,7 +1,17 @@
-import supertest from "supertest";
+import supertest from 'supertest';
+import server from '../modules/app';
 
-describe('sdasd', () => {
-  it('should return 404', () => {
-    expect(true).toBe(true)
+describe('create new user', () => {
+  it('return status 200', () => {
+    const user = {
+      first_name: 'John',
+      last_name: 'Doe',
+      email: 'user@mail.com',
+      password: '@@123456##'
+    };
+
+    supertest(server).post('/api/v1/users', (error, res) => {
+    
+    });
   });
 });

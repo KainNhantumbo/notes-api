@@ -48,7 +48,7 @@
   "paths": {
     "/api/v1/healthcheck": {
       "get": {
-        "tags": ["health", "handshake", "healthcheck"],
+        "tags": ["healthcheck"],
         "summary": "Get API status",
         "description": "Performs a handshake/healthcheck to the server",
         "responses": {
@@ -77,7 +77,7 @@
     },
     "/api/v1/settings": {
       "get": {
-        "tags": ["tags"],
+        "tags": ["settings"],
         "summary": "Get settings",
         "description": "Get user settings",
         "security": [{ "bearerAuth": [{}] }],

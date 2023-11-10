@@ -1,4 +1,3 @@
-import { info } from 'node:console';
 import { Application } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import swaggerSpec from '../data/swagger.json';
@@ -11,5 +10,5 @@ export default function swaggerDocs(app: Application, port: number) {
     res.send(swaggerSpec);
   });
 
-  info(`Docs available at http://localhost:${port}/docs`);
+  console.info(`Docs available at http://localhost:${port}/docs`);
 }
