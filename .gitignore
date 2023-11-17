@@ -2,6 +2,7 @@ node_modules
 dist
 .env
 .vscode
+
 # log files
 /src/logs/**
 /src/cache/**

@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
-import AppError from '../lib/app-error';
+import AppError from '../utils/app-error';
 import User from '../models/User';
 import { Request as IReq, Response as IRes } from 'express';
-import { verifyToken, createToken } from '../lib/jwt-async-functions';
+import { verifyToken, createToken } from '../utils/jwt-async-functions';
 
 dotenv.config(); // imports env variables
 
@@ -56,13 +56,13 @@ export default class AuthController {
         httpOnly: true,
         secure: PROD_ENV && true,
         sameSite: 'strict',
-        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
       })
       .json({
         id: String(foundUser._id),
         token: accessToken,
         email: foundUser.email,
-        name: `${foundUser.first_name} ${foundUser.last_name}`,
+        name: `${foundUser.first_name} ${foundUser.last_name}`
       });
   }
 
@@ -101,7 +101,7 @@ export default class AuthController {
       id: String(foundUser._id),
       token: accessToken,
       email: foundUser.email,
-      name: `${foundUser.first_name} ${foundUser.last_name}`,
+      name: `${foundUser.first_name} ${foundUser.last_name}`
     });
   }
 
@@ -115,7 +115,7 @@ export default class AuthController {
       .clearCookie('userToken', {
         httpOnly: true,
         secure: PROD_ENV && true,
-        sameSite: 'strict',
+        sameSite: 'strict'
       })
       .json({ message: 'Logout successful.' });
   }

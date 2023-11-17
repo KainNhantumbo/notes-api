@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import asyncWrapper from '../lib/async-wrapper';
+import asyncWrapper from '../utils/async-wrapper';
 import AuthController from '../controllers/auth.controller';
 
 const router = Router();

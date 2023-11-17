@@ -1,4 +1,4 @@
-import EventLogger from '../lib/event-logger';
+import Logger from '../utils/logger';
 import { rateLimit } from 'express-rate-limit';
 
 export const rateLimiter = rateLimit({
@@ -9,10 +9,10 @@ export const rateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: function (req, res, next, options) {
-    const event = new EventLogger({
+    const event = new Logger({
       message: `${options.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
-      fileName: 'rate-limiter.log',
+      fileName: 'rate-limiter.log'
     });
     event.register();
-  },
+  }
 });

@@ -4,9 +4,9 @@ import {
   NextFunction as INextFn
 } from 'express';
 import * as dotenv from 'dotenv';
-import AppError from '../lib/app-error';
-import asyncWrapper from '../lib/async-wrapper';
-import { verifyToken } from '../lib/jwt-async-functions';
+import AppError from '../utils/app-error';
+import asyncWrapper from '../utils/async-wrapper';
+import { verifyToken } from '../utils/jwt-async-functions';
 
 // loads environment variables
 dotenv.config();

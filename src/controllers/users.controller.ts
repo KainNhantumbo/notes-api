@@ -4,8 +4,8 @@ import User from '../models/User';
 import Note from '../models/Note';
 import Settings from '../models/Settings';
 import Folder from '../models/Folder';
-import AppError from '../lib/app-error';
-import { validatePassword } from '../lib/validators';
+import AppError from '../utils/app-error';
+import { validatePassword } from '../utils/validators';
 import { Request as IReq, Response as IRes } from 'express';
 
 dotenv.config(); // imports env variables
@@ -25,7 +25,7 @@ export default class UserController {
     const { password, email, ...data } = req.body;
 
     if (!password || String(password).length < 8)
-      throw new AppError('Password must have at least 8 caracteres', 400);
+      throw new AppError('Password must have at least 8 characters', 400);
 
     const validationResult = await validatePassword(String(password));
     if (validationResult === false)
@@ -78,7 +78,7 @@ export default class UserController {
         const response: string = validationResult
           .map((obj) => obj?.message)
           .reduce((acc, current) => {
-            const phrase = String.prototype.concat(acc, ' ', current);
+            const phrase = acc.concat(' ', current);
             return phrase;
           }, '');
 

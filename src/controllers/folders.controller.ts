@@ -2,7 +2,7 @@ import { FilterQuery } from 'mongoose';
 import Folder from '../models/Folder';
 import { Request as IReq, Response as IRes } from 'express';
 import { Folder as FolderType } from '../types/models';
-import AppError from '../lib/app-error';
+import AppError from '../utils/app-error';
 
 export default class FolderController {
   async getFolders(req: IReq, res: IRes) {

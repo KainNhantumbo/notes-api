@@ -10,6 +10,16 @@ This REST API server application is built to serve its endpoints to Choconotey a
 
 This project is under active development, it means that new features a being backed at meanwhile and to catch all them please refer to the front-end app repository [here](https://github.com/KainNhantumbo/notes-app).
 
+## Project Stack
+
+- **Node.JS** - Javascript runtime.
+- **Typescript** - a superset language of Javascript that provides typechecking.
+- **Express.js** - a small unpinionated framework for building server apps with Node.js
+- **MongoDB** - database for storing data.
+- **Jest and Supertest** - for testing.
+- **Mongoose** - an ORM for conneting application to MongoDB.
+- **Swagger Docs** - for API documentation.
+
 ## Current features
 
 ### - Release v1.0.0

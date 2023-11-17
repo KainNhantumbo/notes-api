@@ -1,7 +1,4 @@
 {
-  "ts-node": {
-    "swc": true
-  },
   "compilerOptions": {
     "incremental": true,
     "target": "ES2020",

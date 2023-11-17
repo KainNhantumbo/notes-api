@@ -1,6 +1,6 @@
 import Note from '../models/Note';
-import AppError from '../lib/app-error';
-import { sanitizer } from '../lib/content-sanitizer';
+import AppError from '../utils/app-error';
+import { sanitizer } from '../utils/content-sanitizer';
 import type { Note as NoteType } from '../types/models';
 import { FilterQuery, isValidObjectId } from 'mongoose';
 import { Request as IReq, Response as IRes } from 'express';

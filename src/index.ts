@@ -16,8 +16,8 @@ import { settingsRoutes } from './routes/settings.routes';
 //server configuration
 dotenv.config();
 const app = express();
-const dbUri = process.env.DB_URI || '';
-const PORT = Number(process.env.DB_URI) || 5700;
+const dbUri = String(process.env.DB_URI);
+const PORT = Number(process.env.PORT);
 
 // middlewares
 app.use(helmet());

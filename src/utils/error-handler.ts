@@ -3,8 +3,8 @@ import {
   Response as IRes,
   NextFunction as INext,
 } from 'express';
+import Logger from './logger';
 import AppError from './app-error';
-import EventLogger from './event-logger';
 import { JsonWebTokenError } from 'jsonwebtoken';
 
 /**
@@ -88,7 +88,7 @@ export default class ErrorHandler {
       console.error(
         `An uncaught error has ocurred: \n\n ${error.message}\n\t${error.stack}`
       );
-      new EventLogger({
+      new Logger({
         message: error.stack ?? error.message,
         fileName: 'uncaught-errors.log',
       }).register();
