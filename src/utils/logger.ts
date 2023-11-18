@@ -38,4 +38,8 @@ export default class Logger {
   static info(message: string) {
     pino({ transport: { target: 'pino-pretty' } }).info(message);
   }
+  
+  static error(...message: string[]) {
+    pino({ transport: { target: 'pino-pretty' } }).error(message);
+  }
 }

@@ -16,7 +16,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
-    "test": "jest --detectOpenHandles",
+    "test": "vitest",
     "build": "tsc",
     "typecheck": "tsc",
     "typecheck:watch": "tsc -w"
