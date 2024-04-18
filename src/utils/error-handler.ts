@@ -38,7 +38,7 @@ export default class ErrorHandler {
           status: 'Conflict Error',
           code: 409,
           message:
-            'Data Confict Error: Some of the given information already exists on the server.',
+            'Data Conflict Error: Some of the given information already exists on the server.',
         });
       }
     }
@@ -47,7 +47,7 @@ export default class ErrorHandler {
       return res.status(413).json({
         status: 'PayloadTooLargeError',
         code: 413,
-        message: 'The file choosen is too large',
+        message: 'The file chosen is too large',
       });
 
     if (error instanceof JsonWebTokenError)

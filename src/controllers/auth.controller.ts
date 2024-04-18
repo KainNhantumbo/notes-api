@@ -56,7 +56,7 @@ export default class AuthController {
         httpOnly: true,
         secure: PROD_ENV && true,
         sameSite: 'strict',
-        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        expires: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
       })
       .json({
         id: String(foundUser._id),

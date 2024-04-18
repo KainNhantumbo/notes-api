@@ -89,7 +89,7 @@ My Blog: [https://codenut-dev.vercel.app/blog](https://codenut-dev.vercel.app/bl
 #### If you like this project, let me know by leaving a star on this repository so I can keep improving this app.😊😘
 
 Best regards, Kain Nhantumbo.\
-✌️🇲🇿 **Made with ❤ React + Vite and Typescript**
+✌️🇲🇿 **Made with ❤ Node.JS + Express.JS and Typescript**
 
 ## 📜 License
 

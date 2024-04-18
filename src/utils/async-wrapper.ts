@@ -8,7 +8,7 @@ import { HandledFunctionType } from '../types/index';
 /**
  * Wrapper function for global error handling.
  * @param fn asynchronous function to be wrapped and error handled.
- * @returns Promise<...>
+ * @returns Promise<unknown>
  */
 export default function asyncWrapper(fn: HandledFunctionType) {
   return function (req: IReq, res: IRes, next: INext) {

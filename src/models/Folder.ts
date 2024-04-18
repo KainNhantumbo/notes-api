@@ -5,7 +5,7 @@ const FolderSchema = new Schema<Folder>(
   {
     name: {
       type: String,
-      required: [true, 'Plese give a for your folder before saving'],
+      required: [true, 'Please give a name for your folder before saving'],
       minlength: [3, 'Folder name is too short'],
       maxlength: [16, 'Folder name is too long']
     },

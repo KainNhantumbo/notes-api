@@ -30,10 +30,7 @@
     "choconotey application"
   ],
   "repository": "https://github.com/notes-api",
-  "license": {
-    "name": "Apache License Version 2.0",
-    "url": "https://www.apache.org/licenses/LICENSE-2.0"
-  },
+  "license": "Apache License Version 2.0",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
