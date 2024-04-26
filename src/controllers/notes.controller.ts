@@ -58,8 +58,14 @@ export default class NoteController {
   }
 
   async createNote(req: IReq, res: IRes) {
-    const { user, ...data } = req.body;
-    const createdDoc = await Note.create({ ...data, created_by: user.id });
+    const { user, content, ...data } = req.body;
+    const cleanContent = await sanitizer(String(content));
+    
+    const createdDoc = await Note.create({
+      ...data,
+      content: cleanContent,
+      created_by: user.id
+    });
     res.status(201).json(createdDoc);
   }
 
@@ -70,7 +76,7 @@ export default class NoteController {
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
     if (!existingDoc)
       throw new AppError(
-        'Failded to update note beacause it was not found.',
+        'Failed to update note because it was not found.',
         404
       );
 
@@ -102,7 +108,7 @@ export default class NoteController {
     const existingDoc = await Note.findOne({ _id: noteId }).lean();
     if (!existingDoc)
       throw new AppError(
-        'Failded to delete note beacause the requested note was not found.',
+        'Failed to delete note because the requested note was not found.',
         404
       );
 
