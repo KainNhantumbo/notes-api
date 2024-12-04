@@ -1,7 +1,7 @@
 import {
   Request as IReq,
   Response as IRes,
-  NextFunction as INext,
+  NextFunction as INext
 } from 'express';
 import Logger from './logger';
 import AppError from './app-error';
@@ -19,7 +19,7 @@ export default class ErrorHandler {
     const { message, statusCode }: AppError = err;
     return res.status(statusCode).json({
       message,
-      code: statusCode,
+      code: statusCode
     });
   }
 
@@ -28,7 +28,7 @@ export default class ErrorHandler {
       const { message, statusCode }: AppError = error;
       return res.status(statusCode).json({
         message,
-        code: statusCode,
+        code: statusCode
       });
     }
 
@@ -38,7 +38,7 @@ export default class ErrorHandler {
           status: 'Conflict Error',
           code: 409,
           message:
-            'Data Conflict Error: Some of the given information already exists on the server.',
+            'Data Conflict Error: Some of the given information already exists on the server.'
         });
       }
     }
@@ -47,21 +47,21 @@ export default class ErrorHandler {
       return res.status(413).json({
         status: 'PayloadTooLargeError',
         code: 413,
-        message: 'The file chosen is too large',
+        message: 'The file chosen is too large'
       });
 
     if (error instanceof JsonWebTokenError)
       return res.status(401).json({
         status: 'Authorization Error',
         code: 401,
-        message: 'Unauthorized: invalid credentials.',
+        message: 'Unauthorized: invalid credentials.'
       });
 
     if (error.name === 'UploadApiErrorResponse') {
       return res.status(400).json({
         status: error.name,
         code: 400,
-        message: error.message,
+        message: error.message
       });
     }
 
@@ -72,7 +72,7 @@ export default class ErrorHandler {
       return res.status(400).json({
         status: 'Data Validation Error',
         code: 400,
-        message: errorMessage,
+        message: errorMessage
       });
     }
 
@@ -80,7 +80,7 @@ export default class ErrorHandler {
       return res.status(400).json({
         status: 'Malformed Data Error',
         code: 400,
-        message: 'Some of the data sent to the server was malformed.',
+        message: 'Some of the data sent to the server was malformed.'
       });
     }
 
@@ -90,7 +90,7 @@ export default class ErrorHandler {
       );
       new Logger({
         message: error.stack ?? error.message,
-        fileName: 'uncaught-errors.log',
+        fileName: 'uncaught-errors.log'
       }).register();
     }
 
@@ -98,7 +98,7 @@ export default class ErrorHandler {
       status: 'Internal Server Error',
       code: 500,
       message:
-        'An error occurred while processing your request. Please try again later.',
+        'An error occurred while processing your request. Please try again later.'
     });
   }
 }

@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import serverInstance from '../index';
-import { describe, it , expect} from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 describe('create new user', () => {
   it('return status 201', () => {
@@ -9,11 +9,11 @@ describe('create new user', () => {
       last_name: 'Doe',
       email: 'user@mail.com',
       password: '@@123456##'
-    }; 
+    };
 
-    supertest(serverInstance)..post('/api/v1/users', (error, res) => {
-      expect(res.status).toBe(201)
-      console.log(serverInstance)
+    supertest(serverInstance).post('/api/v1/users', (error, res) => {
+      expect(res.status).toBe(201);
+      console.log(serverInstance);
     });
   });
 });

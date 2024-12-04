@@ -1,0 +1,21 @@
+# Ignore artifacts and dependencies
+node_modules/
+dist/
+build/
+coverage/
+
+# Ignore specific file types
+*.min.js
+*.map
+
+# Ignore version control files
+.git/
+.gitignore
+package-lock.json
+.github
+.idea
+.vscode
+
+# Ignore specific directories or files
+public/
+static/

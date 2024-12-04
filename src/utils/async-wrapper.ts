@@ -1,7 +1,7 @@
 import {
   Request as IReq,
   Response as IRes,
-  NextFunction as INext,
+  NextFunction as INext
 } from 'express';
 import { HandledFunctionType } from '../types/index';
 

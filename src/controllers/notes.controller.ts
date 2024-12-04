@@ -60,7 +60,7 @@ export default class NoteController {
   async createNote(req: IReq, res: IRes) {
     const { user, content, ...data } = req.body;
     const cleanContent = await sanitizer(String(content));
-    
+
     const createdDoc = await Note.create({
       ...data,
       content: cleanContent,

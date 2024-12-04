@@ -10,5 +10,5 @@ export const corsOptions = cors({
   origin: allowedDomains,
   methods: ['GET', 'POST', 'DELETE', 'PATCH'],
   credentials: true,
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200
 });

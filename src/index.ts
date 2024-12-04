@@ -36,4 +36,3 @@ app.use('/api/v1/folders', folderRoutes);
 app.use('/api/v1/settings', settingsRoutes);
 
 new Bootstrap({ app, port: PORT, dbUri });
-

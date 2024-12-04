@@ -61,7 +61,7 @@ export default class UserController {
   }
 
   async updateUser(req: IReq, res: IRes) {
-    let { user, ...userData } = req.body;
+    const { user, ...userData } = req.body;
     const defaultFields = '-password -last_session';
 
     const { password, ...data } = userData;
@@ -101,7 +101,7 @@ export default class UserController {
   }
 
   async deleteUser(req: IReq, res: IRes) {
-    let { user } = req.body;
+    const { user } = req.body;
     await Folder.deleteMany({ created_by: user.id }).lean();
     await Note.deleteMany({ created_by: user.id }).lean();
     await Settings.deleteOne({ created_by: user.id }).lean();
