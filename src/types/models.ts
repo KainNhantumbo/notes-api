@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import type { Schema } from 'mongoose';
 
 export interface User {
   first_name: string;
