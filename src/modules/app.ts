@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import swaggerUI from 'swagger-ui-express';
-import type { AppProps, CurrentServer, IReq, IRes } from '../types';
+import type { AppProps, CurrentServer, IRes } from '../types';
 import { notFoundRoute } from '../routes/404';
 import ErrorHandler from '../utils/error-handler';
 import Logger from '../utils/logger';
-import swaggerSpec from '../docs/swagger.json';
+import swaggerSpec from '../controllers/docs/swagger.json';
 
 export default class Bootstrap {
   private readonly props: AppProps;
@@ -69,7 +69,7 @@ export default class Bootstrap {
   private serveDocs() {
     this.props.app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
-    this.props.app.get('/docs-json', (req: IReq, res: IRes) => {
+    this.props.app.get('/docs-json', (_, res: IRes) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(swaggerSpec);
     });
